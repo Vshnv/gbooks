@@ -5,6 +5,23 @@ extension BookCategoryCollectionViewController {
         let layout = UICollectionViewCompositionalLayout(
             sectionProvider: compositionalLayoutSectionProvider
         )
+        let layoutConfig = UICollectionViewCompositionalLayoutConfiguration()
+        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .fractionalHeight(0.4))
+        
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: footerHeaderSize,
+                        elementKind: MockTopHeader.elementKind,
+                        alignment: .top
+        )
+        header.contentInsets = NSDirectionalEdgeInsets(
+            top: 5,
+            leading: 5,
+            bottom: 5,
+            trailing: 5
+        )
+        layoutConfig.boundarySupplementaryItems = [header]
+        layout.configuration = layoutConfig
         return layout
     }
     

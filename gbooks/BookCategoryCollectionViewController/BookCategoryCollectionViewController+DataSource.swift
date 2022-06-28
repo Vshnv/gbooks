@@ -11,10 +11,18 @@ extension BookCategoryCollectionViewController {
             //return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             return collectionView.dequeueReusableCell(withReuseIdentifier: MockCell.reuseIdentifier, for: indexPath)
         })
-        let headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockHeader.elementKind, handler: supplementaryRegistrationHandler)
-        
+        let headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockHeader.elementKind, handler: self.supplementaryHeaderRegistrationHandler)
+        let topHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockTopHeader.elementKind, handler: self.supplementaryTopHeaderRegistrationHandler)
         dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            switch elementKind {
+            case MockHeader.elementKind:
+    
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            case MockTopHeader.elementKind:
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: topHeaderRegistration, for: indexPath)
+            default:
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            }
         }
         
         collectionView.dataSource = dataSource
@@ -41,7 +49,10 @@ extension BookCategoryCollectionViewController {
         cell.contentConfiguration = contentConfiguration
     }
     
-    private func supplementaryRegistrationHandler(mockHeader: MockHeader, elementKind: String, indexPath: IndexPath) {
+    private func supplementaryHeaderRegistrationHandler(mockHeader: MockHeader, elementKind: String, indexPath: IndexPath) {
         mockHeader.text = "Heading"
+    }
+    private func supplementaryTopHeaderRegistrationHandler(mockHeader: MockTopHeader, elementKind: String, indexPath: IndexPath) {
+        mockHeader.backgroundColor = .random
     }
 }
