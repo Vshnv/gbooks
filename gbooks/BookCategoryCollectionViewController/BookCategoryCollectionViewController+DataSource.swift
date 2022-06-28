@@ -16,7 +16,6 @@ extension BookCategoryCollectionViewController {
         dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
             switch elementKind {
             case MockHeader.elementKind:
-    
                 return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
             case MockTopHeader.elementKind:
                 return self.collectionView.dequeueConfiguredReusableSupplementary(using: topHeaderRegistration, for: indexPath)
