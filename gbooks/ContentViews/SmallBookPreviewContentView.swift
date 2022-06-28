@@ -4,7 +4,6 @@ import Foundation
 class SmallBookPreviewContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
         var bookThumbnail: UIImage?
-        var bookTitle: String
         
         func makeContentView() -> UIView & UIContentView {
             return SmallBookPreviewContentView(self)
@@ -14,8 +13,8 @@ class SmallBookPreviewContentView: UIView, UIContentView {
             self
         }
     }
+    
     private let imageView: UIImageView = UIImageView()
-    private let titleLabel: UILabel = UILabel()
     
     var configuration: UIContentConfiguration {
         didSet {
@@ -26,6 +25,12 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {
@@ -35,6 +40,5 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     private func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
         imageView.image = configuration.bookThumbnail
-        titleLabel.text = configuration.bookTitle
     }
 }
