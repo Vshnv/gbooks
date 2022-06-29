@@ -25,6 +25,8 @@ class BestSellerContentView: UIView, UIContentView {
     private let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 15)
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     
@@ -60,6 +62,7 @@ class BestSellerContentView: UIView, UIContentView {
         guard let configuration = configuration as? Configuration else { return }
         rankLabel.text = configuration.rank?.description ?? ""
         titleLabel.text = configuration.title
+        titleLabel.sizeThatFits(CGSize(width: 50, height: 100))
         descriptionLabel.text = descriptionLabel.text
         thumbnailImageView.image = configuration.thumbnailImage
     }

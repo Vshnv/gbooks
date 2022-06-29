@@ -11,6 +11,8 @@ extension BestSellerContentView {
         containerView.backgroundColor = .systemGray5
         containerView.clipsToBounds = true
         containerView.layer.cornerRadius = 10
+        containerView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 150),
             containerView.topAnchor.constraint(equalTo: topAnchor),
@@ -20,7 +22,10 @@ extension BestSellerContentView {
             thumbnailImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             thumbnailImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             thumbnailImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            thumbnailImageView.widthAnchor.constraint(equalToConstant: 110)
+            thumbnailImageView.widthAnchor.constraint(equalToConstant: 110),
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
         ])
     }
 }
