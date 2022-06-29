@@ -17,9 +17,9 @@ extension BestSellerContentView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            thumbnailImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
-            thumbnailImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -5),
-            thumbnailImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
+            thumbnailImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            thumbnailImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             thumbnailImageView.widthAnchor.constraint(equalToConstant: 110)
         ])
     }
