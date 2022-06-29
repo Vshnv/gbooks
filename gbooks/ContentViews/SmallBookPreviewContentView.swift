@@ -17,7 +17,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     private let imageView: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleToFill
-        img.backgroundColor = .red
+        //img.backgroundColor = .red
         return img
     }()
     
@@ -36,6 +36,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         }
     }
 
+
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
@@ -51,6 +52,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         imageView.image = configuration.bookThumbnail
         titleLabel.text = configuration.bookTitle
     }
+    
 }
 
 extension UICollectionViewListCell {

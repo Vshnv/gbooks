@@ -11,7 +11,7 @@ extension BookCategoryCollectionViewController {
         
         let header = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: headerSize,
-                        elementKind: MockTopHeader.elementKind,
+                        elementKind: LogoImageReusableView.elementKind,
                         alignment: .top
         )
         header.contentInsets = NSDirectionalEdgeInsets(
@@ -26,42 +26,102 @@ extension BookCategoryCollectionViewController {
     }
     
     private func compositionalLayoutSectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        switch Section(rawValue: sectionIndex) {
+        case .bestSellersScience:
+            fallthrough
+        case .bestSellersFiction:
+            return createBestSellerSection()
+        case .thriller:
+            fallthrough
+        case .manga:
+            fallthrough
+        case .sports:
+            fallthrough
+        case .fiction:
+            return createCategorySection()
+        default:
+            fatalError("Unknown section inserted")
+        }
+    }
+    
+    private func createBestSellerSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .absolute(150),
-                heightDimension: .absolute(200)
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(150)
             )
         )
-        item.contentInsets = NSDirectionalEdgeInsets(
-            top: 0,
-            leading: 5,
-            bottom: 5,
-            trailing: 5
-        )
+
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .absolute(150),
-                heightDimension: .absolute(200)
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(150)
             ),
             subitems: [item]
         )
+        
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 5,
+            leading: 0,
+            bottom: 5,
+            trailing: 0
+        )
+        section.orthogonalScrollingBehavior = .paging
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                  heightDimension: .absolute(50.0))
+                                                heightDimension: .absolute(50.0))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: headerSize,
                         elementKind: HeadingLabelReusableView.elementKind,
                         alignment: .top
         )
+        
         header.contentInsets = NSDirectionalEdgeInsets(
             top: 5,
-            leading: 15,
-            bottom: 0,
+            leading: 5,
+            bottom: 5,
             trailing: 5
         )
+
         section.boundarySupplementaryItems = [header]
         return section
     }
     
+    private func createCategorySection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .estimated(150),
+                heightDimension: .estimated(200)
+            )
+        )
+
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .estimated(150),
+                heightDimension: .estimated(200)
+            ),
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 5,
+            leading: 5,
+            bottom: 5,
+            trailing: 5
+        )
+        section.orthogonalScrollingBehavior = .continuous
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(50.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: headerSize,
+                        elementKind: HeadingLabelReusableView.elementKind,
+                        alignment: .top
+        )
+    
+
+        section.boundarySupplementaryItems = [header]
+        return section
+    }
 }
