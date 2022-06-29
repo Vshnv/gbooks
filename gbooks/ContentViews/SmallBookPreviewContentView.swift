@@ -14,7 +14,12 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         }
     }
     
-    private let imageView: UIImageView = UIImageView()
+    private let imageView: UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleToFill
+        img.backgroundColor = .red
+        return img
+    }()
     
     var configuration: UIContentConfiguration {
         didSet {
@@ -25,11 +30,16 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemGray6
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 2.5),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2.5),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
@@ -40,5 +50,12 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     private func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
         imageView.image = configuration.bookThumbnail
+        imageView.setNeedsLayout()
+    }
+}
+
+extension UICollectionViewListCell {
+    func smallBookPreviewConfiguration() -> SmallBookPreviewContentView.Configuration {
+        return SmallBookPreviewContentView.Configuration()
     }
 }

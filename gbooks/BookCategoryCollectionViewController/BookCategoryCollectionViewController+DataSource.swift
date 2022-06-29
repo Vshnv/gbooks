@@ -8,8 +8,8 @@ extension BookCategoryCollectionViewController {
     internal func setupDataSource() {
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
-            //return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-            return collectionView.dequeueReusableCell(withReuseIdentifier: MockCell.reuseIdentifier, for: indexPath)
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            // return collectionView.dequeueReusableCell(withReuseIdentifier: MockCell.reuseIdentifier, for: indexPath)
         })
         let headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockHeader.elementKind, handler: self.supplementaryHeaderRegistrationHandler)
         let topHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockTopHeader.elementKind, handler: self.supplementaryTopHeaderRegistrationHandler)
@@ -42,9 +42,8 @@ extension BookCategoryCollectionViewController {
     }
     
     private func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
-        var contentConfiguration = cell.defaultContentConfiguration()
-        contentConfiguration.text = "Test"
-        contentConfiguration.secondaryText = "test@123"
+        var contentConfiguration = cell.smallBookPreviewConfiguration()
+        contentConfiguration.bookThumbnail = UIImage(named: "sample-cover")
         cell.contentConfiguration = contentConfiguration
     }
     

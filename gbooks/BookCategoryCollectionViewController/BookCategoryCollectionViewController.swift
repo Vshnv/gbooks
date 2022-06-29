@@ -8,7 +8,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.collectionViewLayout = createRootCollectionLayout()
-        collectionView.register(MockCell.self, forCellWithReuseIdentifier: MockCell.reuseIdentifier)
+        //collectionView.register(MockCell.self, forCellWithReuseIdentifier: MockCell.reuseIdentifier)
 
 
         setupDataSource()
