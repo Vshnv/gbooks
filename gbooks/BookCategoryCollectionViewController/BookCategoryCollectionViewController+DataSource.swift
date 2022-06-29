@@ -9,18 +9,17 @@ extension BookCategoryCollectionViewController {
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-            // return collectionView.dequeueReusableCell(withReuseIdentifier: MockCell.reuseIdentifier, for: indexPath)
         })
-        let headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockHeader.elementKind, handler: self.supplementaryHeaderRegistrationHandler)
-        let topHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockTopHeader.elementKind, handler: self.supplementaryTopHeaderRegistrationHandler)
+        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: HeadingLabelReusableView.elementKind, handler: self.supplementarySectionHeaderRegistrationHandler)
+        let viewHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: MockTopHeader.elementKind, handler: self.supplementaryViewHeaderRegistrationHandler)
         dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
             switch elementKind {
-            case MockHeader.elementKind:
-                return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            case HeadingLabelReusableView.elementKind:
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: sectionHeaderRegistration, for: indexPath)
             case MockTopHeader.elementKind:
-                return self.collectionView.dequeueConfiguredReusableSupplementary(using: topHeaderRegistration, for: indexPath)
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: viewHeaderRegistration, for: indexPath)
             default:
-                return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+                fatalError("Unknown element kind found in Book Category Layout")
             }
         }
         
@@ -44,14 +43,14 @@ extension BookCategoryCollectionViewController {
     private func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = UIImage(named: "sample-cover")
-        contentConfiguration.bookTitle = "Percy Jackson and the Lightning Theif"
+        contentConfiguration.bookTitle = "Percy Jackson and the Lightning Theif in the multiverse of madness"
         cell.contentConfiguration = contentConfiguration
     }
     
-    private func supplementaryHeaderRegistrationHandler(mockHeader: MockHeader, elementKind: String, indexPath: IndexPath) {
-        mockHeader.text = "Heading"
+    private func supplementarySectionHeaderRegistrationHandler(header: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) {
+        header.text = "Heading"
     }
-    private func supplementaryTopHeaderRegistrationHandler(mockHeader: MockTopHeader, elementKind: String, indexPath: IndexPath) {
+    private func supplementaryViewHeaderRegistrationHandler(mockHeader: MockTopHeader, elementKind: String, indexPath: IndexPath) {
         mockHeader.backgroundColor = .random
     }
 }

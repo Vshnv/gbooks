@@ -18,6 +18,7 @@
 		84130829286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */; };
 		8413082C286B3ED3005A5C8B /* SmallBookPreviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413082B286B3ED3005A5C8B /* SmallBookPreviewContentView.swift */; };
 		84130830286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */; };
+		84130832286C23A9005A5C8B /* HeadingLabelReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130831286C23A9005A5C8B /* HeadingLabelReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+Layout.swift"; sourceTree = "<group>"; };
 		8413082B286B3ED3005A5C8B /* SmallBookPreviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallBookPreviewContentView.swift; sourceTree = "<group>"; };
 		8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmallBookPreviewContentView+Layout.swift"; sourceTree = "<group>"; };
+		84130831286C23A9005A5C8B /* HeadingLabelReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingLabelReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		8413080E286AFA49005A5C8B /* gbooks */ = {
 			isa = PBXGroup;
 			children = (
+				84130833286C25DF005A5C8B /* ReusableViews */,
 				8413082A286B3E92005A5C8B /* ContentViews */,
 				84130823286B0333005A5C8B /* BookCategoryCollectionViewController */,
 				8413080F286AFA49005A5C8B /* AppDelegate.swift */,
@@ -96,6 +99,14 @@
 				8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */,
 			);
 			path = ContentViews;
+			sourceTree = "<group>";
+		};
+		84130833286C25DF005A5C8B /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				84130831286C23A9005A5C8B /* HeadingLabelReusableView.swift */,
+			);
+			path = ReusableViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 				84130812286AFA49005A5C8B /* SceneDelegate.swift in Sources */,
 				84130827286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift in Sources */,
 				8413082C286B3ED3005A5C8B /* SmallBookPreviewContentView.swift in Sources */,
+				84130832286C23A9005A5C8B /* HeadingLabelReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

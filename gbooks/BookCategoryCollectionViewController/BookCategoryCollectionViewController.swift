@@ -25,55 +25,6 @@ class BookCategoryCollectionViewController: UICollectionViewController {
     
 }
 
-class MockCell: UICollectionViewCell {
-    let label = UILabel()
-    static let reuseIdentifier = "MockCell-reuse-identifier"
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.backgroundColor = .random
-    }
-    required init?(coder: NSCoder) {
-        fatalError("not implemnted")
-    }
-}
-
-class MockHeader: UICollectionReusableView {
-    static var elementKind: String { UICollectionView.elementKindSectionHeader }
-    
-    var text: String = "" {
-        didSet {
-            setNeedsLayout()
-            textView.text = text
-            self.layoutIfNeeded()
-        }
-    }
-    
-    private let textView: UILabel = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        prepareSubviews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func prepareSubviews() {
-        addSubview(textView)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.textColor = .black
-        textView.font = .boldSystemFont(ofSize: 20)
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: topAnchor),
-            textView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
-}
-
 class MockTopHeader: UICollectionReusableView {
     static var elementKind: String { "MockTopHeader" }
     

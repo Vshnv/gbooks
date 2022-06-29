@@ -6,11 +6,11 @@ extension BookCategoryCollectionViewController {
             sectionProvider: compositionalLayoutSectionProvider
         )
         let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
-        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(0.4))
         
         let header = NSCollectionLayoutBoundarySupplementaryItem(
-                        layoutSize: footerHeaderSize,
+                        layoutSize: headerSize,
                         elementKind: MockTopHeader.elementKind,
                         alignment: .top
         )
@@ -47,11 +47,11 @@ extension BookCategoryCollectionViewController {
         )
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                   heightDimension: .absolute(50.0))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
-                        layoutSize: footerHeaderSize,
-                        elementKind: UICollectionView.elementKindSectionHeader,
+                        layoutSize: headerSize,
+                        elementKind: HeadingLabelReusableView.elementKind,
                         alignment: .top
         )
         header.contentInsets = NSDirectionalEdgeInsets(
