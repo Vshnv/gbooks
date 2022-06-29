@@ -17,6 +17,7 @@
 		84130827286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130826286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift */; };
 		84130829286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */; };
 		8413082C286B3ED3005A5C8B /* SmallBookPreviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413082B286B3ED3005A5C8B /* SmallBookPreviewContentView.swift */; };
+		84130830286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		84130826286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+DataSource.swift"; sourceTree = "<group>"; };
 		84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+Layout.swift"; sourceTree = "<group>"; };
 		8413082B286B3ED3005A5C8B /* SmallBookPreviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallBookPreviewContentView.swift; sourceTree = "<group>"; };
+		8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmallBookPreviewContentView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				8413082B286B3ED3005A5C8B /* SmallBookPreviewContentView.swift */,
+				8413082F286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84130830286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift in Sources */,
 				84130814286AFA49005A5C8B /* BookCategoryCollectionViewController.swift in Sources */,
 				84130825286B0358005A5C8B /* BookCategoryCollectionViewController+Actions.swift in Sources */,
 				84130810286AFA49005A5C8B /* AppDelegate.swift in Sources */,

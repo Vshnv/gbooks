@@ -4,7 +4,7 @@ import Foundation
 class SmallBookPreviewContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
         var bookThumbnail: UIImage?
-        
+        var bookTitle: String?
         func makeContentView() -> UIView & UIContentView {
             return SmallBookPreviewContentView(self)
         }
@@ -21,6 +21,15 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         return img
     }()
     
+    private let titleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 12)
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
     var configuration: UIContentConfiguration {
         didSet {
             configure(configuration: configuration)
@@ -30,17 +39,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemGray6
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 2.5),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2.5),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        setupLayout(imageView: imageView, titleLabel: titleLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +49,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     private func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
         imageView.image = configuration.bookThumbnail
-        imageView.setNeedsLayout()
+        titleLabel.text = configuration.bookTitle
     }
 }
 

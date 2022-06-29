@@ -44,6 +44,7 @@ extension BookCategoryCollectionViewController {
     private func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = UIImage(named: "sample-cover")
+        contentConfiguration.bookTitle = "Percy Jackson and the Lightning Theif"
         cell.contentConfiguration = contentConfiguration
     }
     
