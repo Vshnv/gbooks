@@ -33,6 +33,8 @@ class BestSellerContentView: UIView, UIContentView {
     private let descriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .systemFont(ofSize: 12)
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     
@@ -63,7 +65,16 @@ class BestSellerContentView: UIView, UIContentView {
         rankLabel.text = configuration.rank?.description ?? ""
         titleLabel.text = configuration.title
         titleLabel.sizeThatFits(CGSize(width: 50, height: 100))
-        descriptionLabel.text = descriptionLabel.text
+        descriptionLabel.text = configuration.description
+        let attributedText = NSMutableAttributedString(
+                string: configuration.description ?? "",
+                attributes: [:]
+        )
+        let range = NSRange(location: 0, length: attributedText.length)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        descriptionLabel.attributedText = attributedText
         thumbnailImageView.image = configuration.thumbnailImage
     }
 }
