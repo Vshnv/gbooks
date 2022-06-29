@@ -2,10 +2,14 @@ import UIKit
 
 extension SmallBookPreviewContentView {
     internal func setupLayout(imageView: UIImageView, titleLabel: UILabel) {
+        clipsToBounds = true
+        layer.cornerRadius = 20
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
         imageView.addSubview(visualEffectView)
         visualEffectView.contentView.addSubview(titleLabel)
         imageView.translatesAutoresizingMaskIntoConstraints = false

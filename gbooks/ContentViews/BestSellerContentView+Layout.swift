@@ -3,36 +3,37 @@ import UIKit
 
 extension BestSellerContentView {
     internal func setupLayout(rankLabel: UILabel, titleLabel: UILabel, descriptionLabel: UILabel, thumbnailImageView: UIImageView) {
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(containerView)
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(visualEffectView)
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(thumbnailImageView)
-        containerView.backgroundColor = .systemGray5
-        containerView.clipsToBounds = true
-        containerView.layer.cornerRadius = 10
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(descriptionLabel)
+        visualEffectView.contentView.addSubview(thumbnailImageView)
+        //containerView.backgroundColor = .systemGray5
+        visualEffectView.clipsToBounds = true
+        visualEffectView.layer.cornerRadius = 10
+        visualEffectView.contentView.addSubview(titleLabel)
+        visualEffectView.contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 150),
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            thumbnailImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            thumbnailImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            thumbnailImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            visualEffectView.topAnchor.constraint(equalTo: topAnchor),
+            visualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            visualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            visualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            thumbnailImageView.topAnchor.constraint(equalTo: visualEffectView.topAnchor),
+            thumbnailImageView.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: visualEffectView.leadingAnchor),
             thumbnailImageView.widthAnchor.constraint(equalToConstant: 110),
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: visualEffectView.topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            titleLabel.trailingAnchor.constraint(equalTo: visualEffectView.trailingAnchor, constant: -10),
             titleLabel.heightAnchor.constraint(equalToConstant: 50),
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            descriptionLabel.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor, constant: -10),
             descriptionLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 10),
-            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
+            descriptionLabel.trailingAnchor.constraint(equalTo: visualEffectView.trailingAnchor, constant: -10)
         ])
     }
 }

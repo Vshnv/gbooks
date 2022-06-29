@@ -6,7 +6,7 @@ class LogoImageReusableView: UICollectionReusableView {
     var image: UIImage? = nil {
         didSet {
             setNeedsLayout()
-            //imageView.image = image
+            imageView.image = image
             layoutIfNeeded()
         }
     }
