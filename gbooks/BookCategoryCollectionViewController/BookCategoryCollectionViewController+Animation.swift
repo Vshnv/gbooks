@@ -17,7 +17,7 @@ extension BookCategoryCollectionViewController {
                 navigationItem.leftBarButtonItem = iconBarButton
             }
         } else {
-            if position > 0.98 {
+            if position > 0.05 {
                 navigationItem.leftBarButtonItem = nil
             }
         }
