@@ -16,14 +16,9 @@ class BookCategoryCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.collectionViewLayout = createRootCollectionLayout()
-        //collectionView.register(MockCell.self, forCellWithReuseIdentifier: MockCell.reuseIdentifier)
-        //print(collectionView.visibleSupplementaryViews(ofKind: LogoImageReusableView.elementKind))
         setupDataSource()
-        print(collectionView.visibleSupplementaryViews(ofKind: LogoImageReusableView.elementKind))
         setupSearchButton()
         updateSnapshot()
-        print(collectionView.visibleSupplementaryViews(ofKind: LogoImageReusableView.elementKind))
-        print(collectionView.visibleSupplementaryViews(ofKind: LogoImageReusableView.elementKind))
     }
     
     
