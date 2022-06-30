@@ -6,12 +6,13 @@ class LogoImageReusableView: UICollectionReusableView {
     var image: UIImage? = nil {
         didSet {
             setNeedsLayout()
-            //imageView.image = image
+            imageView.image = image
+            imageView.alpha = 0.25
             layoutIfNeeded()
         }
     }
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .center
         return iv

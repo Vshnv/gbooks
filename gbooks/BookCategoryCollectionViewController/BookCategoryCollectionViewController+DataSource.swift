@@ -83,5 +83,6 @@ extension BookCategoryCollectionViewController {
     private func supplementaryViewHeaderRegistrationHandler(logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) {
         // logoImageView.backgroundColor = .random
         logoImageView.image = UIImage(named: "google-logo")
+        
     }
 }

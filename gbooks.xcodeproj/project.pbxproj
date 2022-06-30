@@ -24,6 +24,7 @@
 		84130839286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130838286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift */; };
 		8413083B286C7B24005A5C8B /* BestSellerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413083A286C7B24005A5C8B /* BestSellerContentView.swift */; };
 		8413083D286C7C94005A5C8B /* BestSellerContentView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413083C286C7C94005A5C8B /* BestSellerContentView+Layout.swift */; };
+		8413083F286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413083E286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		84130838286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+Section.swift"; sourceTree = "<group>"; };
 		8413083A286C7B24005A5C8B /* BestSellerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellerContentView.swift; sourceTree = "<group>"; };
 		8413083C286C7C94005A5C8B /* BestSellerContentView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BestSellerContentView+Layout.swift"; sourceTree = "<group>"; };
+		8413083E286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+Animation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				84130826286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift */,
 				84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */,
 				84130838286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift */,
+				8413083E286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift */,
 			);
 			path = BookCategoryCollectionViewController;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				84130812286AFA49005A5C8B /* SceneDelegate.swift in Sources */,
 				84130835286C2E4F005A5C8B /* LogoImageReusableView.swift in Sources */,
 				84130827286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift in Sources */,
+				8413083F286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift in Sources */,
 				84130839286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift in Sources */,
 				8413082C286B3ED3005A5C8B /* SmallBookPreviewContentView.swift in Sources */,
 				84130832286C23A9005A5C8B /* HeadingLabelReusableView.swift in Sources */,
