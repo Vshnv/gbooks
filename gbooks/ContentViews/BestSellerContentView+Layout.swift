@@ -2,11 +2,16 @@ import UIKit
 
 
 extension BestSellerContentView {
-    internal func setupLayout(rankLabel: UILabel, titleLabel: UILabel, descriptionLabel: UILabel, thumbnailImageView: UIImageView) {
+    internal func setupLayout(backgroundImageView: UIImageView, rankLabel: UILabel, titleLabel: UILabel, descriptionLabel: UILabel, thumbnailImageView: UIImageView) {
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.layer.cornerRadius = 10
+        backgroundImageView.contentMode = .scaleToFill
+        addSubview(backgroundImageView)
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(visualEffectView)
+        backgroundImageView.addSubview(visualEffectView)
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         visualEffectView.contentView.addSubview(thumbnailImageView)
         //containerView.backgroundColor = .systemGray5
@@ -18,6 +23,10 @@ extension BestSellerContentView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 150),
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            backgroundImageView.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor),
             visualEffectView.topAnchor.constraint(equalTo: topAnchor),
             visualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             visualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),

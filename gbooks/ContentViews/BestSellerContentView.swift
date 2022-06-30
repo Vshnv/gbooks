@@ -16,6 +16,12 @@ class BestSellerContentView: UIView, UIContentView {
         }
     }
     
+    private let backgroundImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleToFill
+        return iv
+    }()
+    
     private let rankLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 15)
@@ -53,7 +59,7 @@ class BestSellerContentView: UIView, UIContentView {
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
-        setupLayout(rankLabel: rankLabel, titleLabel: titleLabel, descriptionLabel: descriptionLabel, thumbnailImageView: thumbnailImageView)
+        setupLayout(backgroundImageView: backgroundImageView, rankLabel: rankLabel, titleLabel: titleLabel, descriptionLabel: descriptionLabel, thumbnailImageView: thumbnailImageView)
     }
     
     required init?(coder: NSCoder) {
@@ -75,6 +81,7 @@ class BestSellerContentView: UIView, UIContentView {
         paragraphStyle.lineBreakMode = .byTruncatingTail
         attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
         descriptionLabel.attributedText = attributedText
+        backgroundImageView.image = configuration.thumbnailImage
         thumbnailImageView.image = configuration.thumbnailImage
     }
 }

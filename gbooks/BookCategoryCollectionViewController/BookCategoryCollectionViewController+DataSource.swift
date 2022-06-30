@@ -47,7 +47,7 @@ extension BookCategoryCollectionViewController {
     func updateSnapshot() {
         var snapshot = Snapshot()
         var identifierOffset = 0
-        let itemsPerSection = 30
+        let itemsPerSection = 10
         for section in Section.bestSellersFiction.rawValue...Section.sports.rawValue {
             snapshot.appendSections([section])
             let maxIdentifier = identifierOffset + itemsPerSection
@@ -75,8 +75,11 @@ extension BookCategoryCollectionViewController {
     }
     
     private func supplementarySectionHeaderRegistrationHandler(headerView: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) {
-        headerView.text = "Heading"
+        
+        let section = Section(rawValue: indexPath.section)
+        headerView.text = section?.name ?? ""
     }
+    
     private func supplementaryViewHeaderRegistrationHandler(logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) {
         // logoImageView.backgroundColor = .random
         logoImageView.image = UIImage(named: "google-logo")

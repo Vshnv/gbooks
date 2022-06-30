@@ -67,7 +67,7 @@ extension BookCategoryCollectionViewController {
             bottom: 5,
             trailing: 0
         )
-        section.orthogonalScrollingBehavior = .paging
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                 heightDimension: .absolute(50.0))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -78,7 +78,7 @@ extension BookCategoryCollectionViewController {
         
         header.contentInsets = NSDirectionalEdgeInsets(
             top: 5,
-            leading: 5,
+            leading: 15,
             bottom: 5,
             trailing: 5
         )
@@ -106,7 +106,7 @@ extension BookCategoryCollectionViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 5,
+            top: 0,
             leading: 5,
             bottom: 5,
             trailing: 5
@@ -119,7 +119,12 @@ extension BookCategoryCollectionViewController {
                         elementKind: HeadingLabelReusableView.elementKind,
                         alignment: .top
         )
-    
+        header.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 10,
+            bottom: 0,
+            trailing: 0
+        )
 
         section.boundarySupplementaryItems = [header]
         return section
