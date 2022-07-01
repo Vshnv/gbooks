@@ -93,7 +93,7 @@ class BestSellerContentView: UIView, UIContentView {
             guard let url = urlComponents.url else {
                 return
             }
-            backgroundImageView.loadImage(at: url)
+            backgroundImageView.loadImage(at: url, useActivityIndicator: false)
             thumbnailImageView.loadImage(at: url)
         }
     }
