@@ -2,23 +2,23 @@ import UIKit
 
 extension BookCategoryCollectionViewController {
     enum Section: Int, Hashable {
-        case bestSellersFiction
+        case bestSellersHealth
         case thriller
         case fiction
-        case bestSellersScience
+        case bestSellersTravel
         case manga
         case sports
         
         var name: String {
             switch self {
-            case .bestSellersFiction:
-                return NSLocalizedString("Best Sellers - Fiction", comment: "Best sellers fiction section name")
+            case .bestSellersHealth:
+                return NSLocalizedString("Best Sellers - Health", comment: "Best sellers health section name")
             case .thriller:
                 return NSLocalizedString("Thriller", comment: "Thriller section name")
             case .fiction:
                 return NSLocalizedString("Fiction", comment: "Fiction section name")
-            case .bestSellersScience:
-                return NSLocalizedString("Best Sellers - Science", comment: "Best sellers fiction section name")
+            case .bestSellersTravel:
+                return NSLocalizedString("Best Sellers - Travel", comment: "Best sellers travel section name")
             case .manga:
                 return NSLocalizedString("Manga", comment: "Manga section name")
             case .sports:
@@ -28,14 +28,14 @@ extension BookCategoryCollectionViewController {
         
         var subject: Subject {
             switch self {
-            case .bestSellersFiction:
-                return .fiction
+            case .bestSellersHealth:
+                return .health
             case .thriller:
                 return .thriller
             case .fiction:
                 return .fiction
-            case .bestSellersScience:
-                return .science
+            case .bestSellersTravel:
+                return .travel
             case .manga:
                 return .manga
             case .sports:

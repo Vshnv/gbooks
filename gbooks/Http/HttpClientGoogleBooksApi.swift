@@ -23,7 +23,9 @@ class HttpClientGoogleBooksApi: GoogleBooksApi {
 
 enum Subject: String {
     case thriller = "thriller"
+    case travel = "travel"
     case fiction = "fiction"
+    case health = "health"
     case manga = "manga"
     case sports = "sports"
     case science = "science"

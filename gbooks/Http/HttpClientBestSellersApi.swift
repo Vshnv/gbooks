@@ -9,12 +9,12 @@ class HttpClientBestSellersApi: BestSellersApi {
         self.client = client
     }
     
-    func fetchBestSellers(subject: Subject) async throws -> BestSellerFetchRequest {
+    func fetchBestSellers(subject: Subject) async throws -> BestSellerFetchResult {
         return try await client.get(
             url: "https://api.nytimes.com",
             path: String(format: BestSellers.fetchVolumesPath, subject.rawValue),
             parameters: ["api-key": BestSellers.apiKey],
-            decodeTo: BestSellerFetchRequest.self
+            decodeTo: BestSellerFetchResult.self
         )
     }
 }
@@ -22,5 +22,5 @@ class HttpClientBestSellersApi: BestSellersApi {
 fileprivate enum BestSellers {
     static let apiKey = "VuZ1GWA5eSfnW5m4QHSNtIKuXMmJZvtx"
     static let apiUrl = "https://api.nytimes.com"
-    static let fetchVolumesPath = "/svc/books/v3/lists/current/%s.json"
+    static let fetchVolumesPath = "/svc/books/v3/lists/current/%@.json"
 }

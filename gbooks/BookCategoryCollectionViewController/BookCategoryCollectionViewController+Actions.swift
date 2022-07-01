@@ -4,15 +4,19 @@ import UIKit
 extension BookCategoryCollectionViewController {
     
     @objc func onSearchButtonPress(_ sender: UIBarButtonItem) {
-        let api: GoogleBooksApi = HttpClientGoogleBooksApi(
+        let bestSellersApi = HttpClientBestSellersApi(
             client: HttpClient(
                 session: URLSession.shared,
-                decoder: JSONDecoder()
+                decoder: {
+                    let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    return jsonDecoder
+                }()
             )
         )
         Task {
-            let result = try! await api.fetchVolumes(nil, subject: .manga)
-            print(result.totalItems)
+            let result = try! await bestSellersApi.fetchBestSellers(subject: .health)
+            print(result.results)
         }
     }
 

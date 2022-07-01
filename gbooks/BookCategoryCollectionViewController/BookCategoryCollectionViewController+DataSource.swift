@@ -12,9 +12,9 @@ extension BookCategoryCollectionViewController {
             let sectionIndex = indexPath.section
             let section = Section(rawValue: sectionIndex)
             switch section {
-            case .bestSellersScience:
+            case .bestSellersTravel:
                 fallthrough
-            case .bestSellersFiction:
+            case .bestSellersHealth:
                 return collectionView.dequeueConfiguredReusableCell(using: bestSellerCellRegistration, for: indexPath, item: itemIdentifier)
             case .thriller:
                 fallthrough
@@ -46,20 +46,41 @@ extension BookCategoryCollectionViewController {
     
     @MainActor func updateSnapshot() {
         var snapshot = Snapshot()
-        for section in Section.bestSellersFiction.rawValue...Section.sports.rawValue {
-            snapshot.appendSections([section])
-            let volumes: [Volume] = volumeData[Section(rawValue: section)!] ?? [Volume(kind: nil, id: "section\(section)", etag: nil, selfLink: nil, volumeInfo: nil, saleInfo: nil, accessInfo: nil, searchInfo: nil)]
-            snapshot.appendItems(volumes.map{vol in vol.id ?? ""}, toSection: section)
+        
+        for sectionIndex in Section.bestSellersHealth.rawValue...Section.sports.rawValue {
+            snapshot.appendSections([sectionIndex])
+            let section = Section(rawValue: sectionIndex)!
+            switch section {
+            case .bestSellersTravel:
+                fallthrough
+            case .bestSellersHealth:
+                let bestSellers: [BestSeller] = bestSellerData[section] ?? []
+                snapshot.appendItems(bestSellers.map{bestSeller in bestSeller.primaryIsbn13 }, toSection: sectionIndex)
+            case .thriller:
+                fallthrough
+            case .manga:
+                fallthrough
+            case .sports:
+                fallthrough
+            case .fiction:
+                let volumes: [Volume] = volumeData[section] ?? []
+                snapshot.appendItems(volumes.map{vol in vol.id ?? ""}, toSection: sectionIndex)
+            default:
+                fatalError("Unknown section inserted")
+            }
         }
         dataSource.apply(snapshot)
     }
     
     private func bestSellerCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
+        let section = Section(rawValue: indexPath.section)!
+        let bestSellers = bestSellerData[section] ?? []
+        let book = bestSellers.first(where: { $0.primaryIsbn13 == id })
         var contentConfiguration = cell.bestSellerConfiguration()
-        contentConfiguration.rank = 1
-        contentConfiguration.title = "Percy Jackson and the Lightning Theif"
-        contentConfiguration.description = "The Lightning Thief is a light-hearted fantasy about a modern 12-year-old boy who learns that his true father is Poseidon, the Greek god of the sea. Percy sets out to become a hero by undertaking a quest across the United States to find the entrance to the Underworld and stop a war between the gods."
-        contentConfiguration.thumbnailImage = UIImage(named: "sample-cover")
+        contentConfiguration.rank = book?.rank
+        contentConfiguration.title = book?.title
+        contentConfiguration.description = book?.description
+        contentConfiguration.thumbnailImage = book?.bookImage
         cell.contentConfiguration = contentConfiguration
     }
     

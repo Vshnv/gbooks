@@ -5,7 +5,7 @@ class BestSellerContentView: UIView, UIContentView {
         var rank: Int?
         var title: String?
         var description: String?
-        var thumbnailImage: UIImage?
+        var thumbnailImage: String?
         
         func makeContentView() -> UIView & UIContentView {
             return BestSellerContentView(self)
@@ -81,8 +81,21 @@ class BestSellerContentView: UIView, UIContentView {
         paragraphStyle.lineBreakMode = .byTruncatingTail
         attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
         descriptionLabel.attributedText = attributedText
-        backgroundImageView.image = configuration.thumbnailImage
-        thumbnailImageView.image = configuration.thumbnailImage
+        backgroundImageView.image = nil
+        thumbnailImageView.image = nil
+        backgroundImageView.cancelImageLoad()
+        thumbnailImageView.cancelImageLoad()
+        if configuration.thumbnailImage != nil {
+            guard var urlComponents = URLComponents(string: configuration.thumbnailImage!) else {
+                return
+            }
+            urlComponents.scheme = "https"
+            guard let url = urlComponents.url else {
+                return
+            }
+            backgroundImageView.loadImage(at: url)
+            thumbnailImageView.loadImage(at: url)
+        }
     }
 }
 extension UICollectionViewListCell {

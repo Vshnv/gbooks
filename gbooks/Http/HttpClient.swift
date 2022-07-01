@@ -22,8 +22,13 @@ class HttpClient {
         }
         let request = URLRequest(url: url)
         let (data, _) = try await session.data(for: request)
-        let volumeResponse = try decoder.decode(decodeTo, from: data)
-        return volumeResponse
+        do {
+            let volumeResponse = try decoder.decode(decodeTo, from: data)
+            return volumeResponse
+        } catch {
+            print(String(bytes: data, encoding: .ascii))
+            throw error
+        }
     }
 }
 

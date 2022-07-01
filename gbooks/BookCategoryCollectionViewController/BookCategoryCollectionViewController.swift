@@ -10,11 +10,28 @@ class BookCategoryCollectionViewController: UICollectionViewController {
             decoder: JSONDecoder()
         )
     )
-    @MainActor var volumeData : [BookCategoryCollectionViewController.Section:[Volume]] = [
+    
+    let bestSellersApi = HttpClientBestSellersApi(
+        client: HttpClient(
+            session: URLSession.shared,
+            decoder: {
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                return jsonDecoder
+            }()
+        )
+    )
+    
+    @MainActor var volumeData : [Section:[Volume]] = [
         .thriller : [],
         .fiction : [],
         .manga : [],
         .sports : []
+    ]
+    
+    @MainActor var bestSellerData : [Section:[BestSeller]] = [
+        .bestSellersHealth : [],
+        .bestSellersTravel : []
     ]
     
     internal let iconBarButton: UIBarButtonItem = {
@@ -35,6 +52,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         updateSnapshot()
         Task {
             await loadVolumeData()
+            await loadBestSellerData()
             updateSnapshot()
         }
     }
@@ -48,6 +66,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
                         return (section, try await self.booksApi.fetchVolumes(nil, subject: section.subject).items)
                     } catch {
                         print("Exception while loading section <\(section)>")
+                        print(error)
                     }
                     return (section, [Volume]())
                 }
@@ -56,6 +75,27 @@ class BookCategoryCollectionViewController: UICollectionViewController {
                 res[section] = volumes
             }
             volumeData = res
+        }
+    }
+    
+    func loadBestSellerData() async {
+        var res = [Section:[BestSeller]]()
+        await withTaskGroup(of: (Section,[BestSeller]).self) { group in
+            for section in bestSellerData.keys {
+                group.addTask(priority: .medium) {
+                    do {
+                        return (section, try await self.bestSellersApi.fetchBestSellers(subject: section.subject).results.books)
+                    } catch {
+                        print("Exception while loading section <\(section)>")
+                        print(error)
+                    }
+                    return (section, [BestSeller]())
+                }
+            }
+            for await (section, bestSellers) in group {
+                res[section] = bestSellers
+            }
+            bestSellerData = res
         }
     }
     

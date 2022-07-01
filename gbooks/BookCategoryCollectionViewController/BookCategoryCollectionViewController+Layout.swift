@@ -27,9 +27,9 @@ extension BookCategoryCollectionViewController {
     
     private func compositionalLayoutSectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch Section(rawValue: sectionIndex) {
-        case .bestSellersScience:
+        case .bestSellersTravel:
             fallthrough
-        case .bestSellersFiction:
+        case .bestSellersHealth:
             return createBestSellerSection()
         case .thriller:
             fallthrough

@@ -1,12 +1,22 @@
 import Foundation
 
-struct BestSellerFetchRequest: Codable {
+struct BestSellerFetchResult: Codable {
     let status: String
     let copyright: String
     let numResults: Int
     let lastModified: String
-    let results: [BestSeller]
-    let corrections: [String]
+    let results: Result
+    
+    struct Result: Codable {
+        let listName: String
+        let bestsellersDate: String
+        let publishedDate: String
+        let displayName: String
+        let normalListEndsAt: Int
+        let updated: String
+        let books: [BestSeller]
+        let corrections: [String]
+    }
 }
 
 
@@ -20,7 +30,7 @@ struct BestSeller: Codable {
     let primaryIsbn13: String
     let publisher: String
     let description: String
-    let price: Int
+    let price: String
     let title: String
     let author: String
     let contributor: String
