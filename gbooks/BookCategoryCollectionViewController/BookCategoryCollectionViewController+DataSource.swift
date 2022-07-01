@@ -109,7 +109,7 @@ extension BookCategoryCollectionViewController {
                 fatalError("Unknown section inserted")
             }
         }
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func bestSellerCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
