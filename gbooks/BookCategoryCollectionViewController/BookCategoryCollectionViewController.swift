@@ -76,8 +76,6 @@ class BookCategoryCollectionViewController: UICollectionViewController {
                 }
             }
             for await (section, volumes) in group {
-                try! await Task.sleep(UInt64.random(in: 100000..<100000000))
-
                 res[section] = volumes
                 setVolumeData(section: section, volumes: volumes)
                 updateSnapshot()
