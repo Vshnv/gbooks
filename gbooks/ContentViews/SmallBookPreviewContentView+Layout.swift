@@ -32,19 +32,5 @@ extension SmallBookPreviewContentView {
             titleLabel.trailingAnchor.constraint(equalTo: visualEffectView.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor)
         ])
-        /*NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            visualEffectView.topAnchor.constraint(equalTo: topAnchor, constant: 150),
-            visualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            visualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: visualEffectView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: visualEffectView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: visualEffectView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor)
-        ])*/
     }
 }

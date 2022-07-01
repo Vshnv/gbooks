@@ -34,6 +34,8 @@
 		84130855286DE6B9005A5C8B /* BestSellersApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130854286DE6B9005A5C8B /* BestSellersApi.swift */; };
 		84130857286DE7BD005A5C8B /* BestSeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130856286DE7BD005A5C8B /* BestSeller.swift */; };
 		84130859286DEABD005A5C8B /* HttpClientBestSellersApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130858286DEABD005A5C8B /* HttpClientBestSellersApi.swift */; };
+		8413085B286EE692005A5C8B /* BookCategoryCollectionViewController+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413085A286EE691005A5C8B /* BookCategoryCollectionViewController+LoadState.swift */; };
+		8413085D286F0375005A5C8B /* BookCategoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413085C286F0375005A5C8B /* BookCategoryProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		84130854286DE6B9005A5C8B /* BestSellersApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellersApi.swift; sourceTree = "<group>"; };
 		84130856286DE7BD005A5C8B /* BestSeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSeller.swift; sourceTree = "<group>"; };
 		84130858286DEABD005A5C8B /* HttpClientBestSellersApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientBestSellersApi.swift; sourceTree = "<group>"; };
+		8413085A286EE691005A5C8B /* BookCategoryCollectionViewController+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookCategoryCollectionViewController+LoadState.swift"; sourceTree = "<group>"; };
+		8413085C286F0375005A5C8B /* BookCategoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCategoryProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +86,6 @@
 		84130803286AFA49005A5C8B = {
 			isa = PBXGroup;
 			children = (
-				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
 				8413080E286AFA49005A5C8B /* gbooks */,
 				8413080D286AFA49005A5C8B /* Products */,
 			);
@@ -105,12 +108,13 @@
 				8413082A286B3E92005A5C8B /* ContentViews */,
 				84130823286B0333005A5C8B /* BookCategoryCollectionViewController */,
 				8413080F286AFA49005A5C8B /* AppDelegate.swift */,
+				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
+				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
 				84130811286AFA49005A5C8B /* SceneDelegate.swift */,
 				84130815286AFA49005A5C8B /* Main.storyboard */,
 				84130818286AFA4B005A5C8B /* Assets.xcassets */,
 				8413081A286AFA4B005A5C8B /* LaunchScreen.storyboard */,
 				8413081D286AFA4B005A5C8B /* Info.plist */,
-				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
 			);
 			path = gbooks;
 			sourceTree = "<group>";
@@ -124,6 +128,8 @@
 				84130828286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift */,
 				84130838286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift */,
 				8413083E286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift */,
+				8413085A286EE691005A5C8B /* BookCategoryCollectionViewController+LoadState.swift */,
+				8413085C286F0375005A5C8B /* BookCategoryProvider.swift */,
 			);
 			path = BookCategoryCollectionViewController;
 			sourceTree = "<group>";
@@ -252,10 +258,12 @@
 				84130829286B327C005A5C8B /* BookCategoryCollectionViewController+Layout.swift in Sources */,
 				84130837286C52FE005A5C8B /* UIView+PinnedSubview.swift in Sources */,
 				84130812286AFA49005A5C8B /* SceneDelegate.swift in Sources */,
+				8413085B286EE692005A5C8B /* BookCategoryCollectionViewController+LoadState.swift in Sources */,
 				84130835286C2E4F005A5C8B /* LogoImageReusableView.swift in Sources */,
 				84130842286D8CD6005A5C8B /* HttpClient.swift in Sources */,
 				84130851286DDD89005A5C8B /* UIImageLoader.swift in Sources */,
 				84130827286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift in Sources */,
+				8413085D286F0375005A5C8B /* BookCategoryProvider.swift in Sources */,
 				8413083F286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift in Sources */,
 				84130839286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift in Sources */,
 				84130855286DE6B9005A5C8B /* BestSellersApi.swift in Sources */,

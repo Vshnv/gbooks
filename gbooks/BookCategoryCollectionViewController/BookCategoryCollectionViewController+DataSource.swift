@@ -8,14 +8,24 @@ extension BookCategoryCollectionViewController {
     internal func setupDataSource() {
         let bestSellerCellRegistration = UICollectionView.CellRegistration(handler: bestSellerCellRegistrationHandler)
         let smallBookPreviewCellRegistration = UICollectionView.CellRegistration(handler: smallBookPreviewCellRegistrationHandler)
+        collectionView.register(LoadingBestSellerCell.self, forCellWithReuseIdentifier: LoadingBestSellerCell.reuseIdentifier)
+        collectionView.register(LoadingSmallBookPreviewCell.self, forCellWithReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
             let sectionIndex = indexPath.section
-            let section = Section(rawValue: sectionIndex)
+            let section = Section(rawValue: sectionIndex)!
             switch section {
             case .bestSellersTravel:
                 fallthrough
             case .bestSellersHealth:
-                return collectionView.dequeueConfiguredReusableCell(using: bestSellerCellRegistration, for: indexPath, item: itemIdentifier)
+                let bestSellersState = self.bestSellerData[section] ?? .error(message: "Not Found")
+                switch bestSellersState {
+                case .loaded(_):
+                    return collectionView.dequeueConfiguredReusableCell(using: bestSellerCellRegistration, for: indexPath, item: itemIdentifier)
+                case .notLoaded:
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingBestSellerCell.reuseIdentifier, for: indexPath)
+                case .error(_):
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingBestSellerCell.reuseIdentifier, for: indexPath)
+                }
             case .thriller:
                 fallthrough
             case .manga:
@@ -23,7 +33,15 @@ extension BookCategoryCollectionViewController {
             case .sports:
                 fallthrough
             case .fiction:
-                return collectionView.dequeueConfiguredReusableCell(using: smallBookPreviewCellRegistration, for: indexPath, item: itemIdentifier)
+                let volumeState = self.volumeData[section] ?? .error(message: "Not Found")
+                switch volumeState {
+                case .loaded(_):
+                    return collectionView.dequeueConfiguredReusableCell(using: smallBookPreviewCellRegistration, for: indexPath, item: itemIdentifier)
+                case .notLoaded:
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
+                case .error(_):
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
+                }
             default:
                 fatalError("Unknown section inserted")
             }
@@ -54,8 +72,19 @@ extension BookCategoryCollectionViewController {
             case .bestSellersTravel:
                 fallthrough
             case .bestSellersHealth:
-                let bestSellers: [BestSeller] = bestSellerData[section] ?? []
-                snapshot.appendItems(bestSellers.map{bestSeller in bestSeller.primaryIsbn13 }, toSection: sectionIndex)
+                let bestSellersState = bestSellerData[section] ?? .error(message: "Not Found")
+                switch bestSellersState {
+                case .loaded(let data):
+                    snapshot.appendItems(
+                        data.map{ bestSeller in bestSeller.primaryIsbn13 },
+                        toSection: sectionIndex
+                    )
+                default:
+                    snapshot.appendItems(
+                        (0..<2).map{_ in UUID().uuidString},
+                        toSection: sectionIndex
+                    )
+                }
             case .thriller:
                 fallthrough
             case .manga:
@@ -63,8 +92,19 @@ extension BookCategoryCollectionViewController {
             case .sports:
                 fallthrough
             case .fiction:
-                let volumes: [Volume] = volumeData[section] ?? []
-                snapshot.appendItems(volumes.map{vol in vol.id ?? ""}, toSection: sectionIndex)
+                let volumeSate = volumeData[section] ?? VolumeLoadState.error(message: "Not Found")
+                switch volumeSate {
+                case .loaded(let data):
+                    snapshot.appendItems(
+                        data.map{ volume in volume.id! },
+                        toSection: sectionIndex
+                    )
+                default:
+                    snapshot.appendItems(
+                        (0..<4).map{_ in UUID().uuidString},
+                        toSection: sectionIndex
+                    )
+                }
             default:
                 fatalError("Unknown section inserted")
             }
@@ -74,7 +114,11 @@ extension BookCategoryCollectionViewController {
     
     private func bestSellerCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         let section = Section(rawValue: indexPath.section)!
-        let bestSellers = bestSellerData[section] ?? []
+        let bestSellersState = bestSellerData[section] ?? .error(message: "Not Found")
+        guard case .loaded(let data) = bestSellersState else {
+            return
+        }
+        let bestSellers = data
         let book = bestSellers[indexPath.item]
         var contentConfiguration = cell.bestSellerConfiguration()
         contentConfiguration.rank = book.rank
@@ -86,7 +130,11 @@ extension BookCategoryCollectionViewController {
     
     private func smallBookPreviewCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         let section = Section(rawValue: indexPath.section)!
-        let volumes = volumeData[section] ?? []
+        let volumesState = volumeData[section] ?? .error(message: "Not Found")
+        guard case .loaded(let data) = volumesState else {
+            return
+        }
+        let volumes = data
         let vol = volumes[indexPath.item]
         
         let title = vol.volumeInfo?.title

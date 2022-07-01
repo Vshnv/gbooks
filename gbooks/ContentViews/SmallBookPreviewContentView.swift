@@ -17,7 +17,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     private let imageView: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleToFill
-        //img.backgroundColor = .red
+        img.backgroundColor = .systemGray2
         return img
     }()
     
@@ -62,6 +62,36 @@ class SmallBookPreviewContentView: UIView, UIContentView {
             }
             imageView.loadImage(at: url)
         }
+    }
+}
+
+class LoadingSmallBookPreviewCell: UICollectionViewCell {
+    static let reuseIdentifier = "LoadingSmallBookPreviewCell"
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let activityIndicator = UIActivityIndicatorView()
+        clipsToBounds = true
+        layer.cornerRadius = 20
+        contentView.addSubview(activityIndicator)
+        contentView.backgroundColor = .systemGray6
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 200),
+            contentView.widthAnchor.constraint(equalToConstant: 150),
+            activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
+
+            self?.contentView.alpha = 0.25
+
+        }, completion: nil)
+    }
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

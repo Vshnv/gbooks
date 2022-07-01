@@ -22,16 +22,16 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         )
     )
     
-    @MainActor var volumeData : [Section:[Volume]] = [
-        .thriller : [],
-        .fiction : [],
-        .manga : [],
-        .sports : []
+    @MainActor var volumeData : [Section:VolumeLoadState] = [
+        .thriller : .notLoaded,
+        .fiction : .notLoaded,
+        .manga : .notLoaded,
+        .sports : .notLoaded
     ]
     
-    @MainActor var bestSellerData : [Section:[BestSeller]] = [
-        .bestSellersHealth : [],
-        .bestSellersTravel : []
+    @MainActor var bestSellerData : [Section:BestSellerLoadState] = [
+        .bestSellersHealth : .notLoaded,
+        .bestSellersTravel :.notLoaded
     ]
     
     internal let iconBarButton: UIBarButtonItem = {
@@ -57,16 +57,20 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         }
     }
     
-    @MainActor private func setVolumeData(section: Section, volumes: [Volume]) {
-        volumeData[section] = volumes
+    @MainActor private func setVolumeData(section: Section, volumesLoadState: VolumeLoadState) {
+        volumeData[section] = volumesLoadState
+    }
+    
+    @MainActor private func setBestsellerData(section: Section, bestSellersLoadState: BestSellerLoadState) {
+        bestSellerData[section] = bestSellersLoadState
     }
     
     func loadVolumeData() async {
-        var res = [Section:[Volume]]()
         await withTaskGroup(of: (Section,[Volume]).self) { group in
             for section in volumeData.keys {
                 group.addTask(priority: .medium) {
                     do {
+                       
                         return (section, try await self.booksApi.fetchVolumes(nil, subject: section.subject).items)
                     } catch {
                         print("Exception while loading section <\(section)>")
@@ -76,19 +80,18 @@ class BookCategoryCollectionViewController: UICollectionViewController {
                 }
             }
             for await (section, volumes) in group {
-                res[section] = volumes
-                setVolumeData(section: section, volumes: volumes)
+                setVolumeData(section: section, volumesLoadState: .loaded(data: volumes))
                 updateSnapshot()
             }
         }
     }
     
     func loadBestSellerData() async {
-        var res = [Section:[BestSeller]]()
         await withTaskGroup(of: (Section,[BestSeller]).self) { group in
             for section in bestSellerData.keys {
                 group.addTask(priority: .medium) {
                     do {
+                        
                         return (section, try await self.bestSellersApi.fetchBestSellers(subject: section.subject).results.books)
                     } catch {
                         print("Exception while loading section <\(section)>")
@@ -98,9 +101,9 @@ class BookCategoryCollectionViewController: UICollectionViewController {
                 }
             }
             for await (section, bestSellers) in group {
-                res[section] = bestSellers
+                setBestsellerData(section: section, bestSellersLoadState: .loaded(data: bestSellers))
+                updateSnapshot()
             }
-            bestSellerData = res
         }
     }
     

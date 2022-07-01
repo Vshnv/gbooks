@@ -98,6 +98,41 @@ class BestSellerContentView: UIView, UIContentView {
         }
     }
 }
+
+class LoadingBestSellerCell: UICollectionViewCell {
+    static let reuseIdentifier = "LoadingBestSellerCell"
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(view)
+        let activityIndicator = UIActivityIndicatorView()
+        view.addSubview(activityIndicator)
+        view.backgroundColor = .systemGray5
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 150),
+            view.topAnchor.constraint(equalTo: topAnchor),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: {
+            view.alpha = 0.25
+        }, completion: nil)
+    }
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 extension UICollectionViewListCell {
     func bestSellerConfiguration() -> BestSellerContentView.Configuration {
         return BestSellerContentView.Configuration()
