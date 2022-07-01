@@ -75,22 +75,22 @@ extension BookCategoryCollectionViewController {
     private func bestSellerCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         let section = Section(rawValue: indexPath.section)!
         let bestSellers = bestSellerData[section] ?? []
-        let book = bestSellers.first(where: { $0.primaryIsbn13 == id })
+        let book = bestSellers[indexPath.item]
         var contentConfiguration = cell.bestSellerConfiguration()
-        contentConfiguration.rank = book?.rank
-        contentConfiguration.title = book?.title
-        contentConfiguration.description = book?.description
-        contentConfiguration.thumbnailImage = book?.bookImage
+        contentConfiguration.rank = book.rank
+        contentConfiguration.title = book.title
+        contentConfiguration.description = book.description
+        contentConfiguration.thumbnailImage = book.bookImage
         cell.contentConfiguration = contentConfiguration
     }
     
     private func smallBookPreviewCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
         let section = Section(rawValue: indexPath.section)!
         let volumes = volumeData[section] ?? []
-        let vol = volumes.first(where: {$0.id == id})
+        let vol = volumes[indexPath.item]
         
-        let title = vol?.volumeInfo?.title
-        let thumbnailLink = vol?.volumeInfo?.imageLinks?.thumbnail
+        let title = vol.volumeInfo?.title
+        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail
         
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = thumbnailLink
