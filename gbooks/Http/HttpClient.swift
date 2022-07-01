@@ -3,11 +3,12 @@ import UIKit
 
 class HttpClient {
     private let session: URLSession
-    private let decoder = JSONDecoder()
+    private let decoder: JSONDecoder
 
     
-    init(session: URLSession) {
+    init(session: URLSession, decoder: JSONDecoder) {
         self.session = session
+        self.decoder = decoder
     }
     
     func get<R: Codable>(url: String, path: String, parameters: [String:String], decodeTo: R.Type) async throws -> R {

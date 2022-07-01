@@ -3,7 +3,7 @@ import Foundation
 
 class SmallBookPreviewContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
-        var bookThumbnail: UIImage?
+        var bookThumbnail: String?
         var bookTitle: String?
         func makeContentView() -> UIView & UIContentView {
             return SmallBookPreviewContentView(self)
@@ -49,10 +49,20 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     
     private func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
-        imageView.image = configuration.bookThumbnail
         titleLabel.text = configuration.bookTitle
+        imageView.image = nil
+        imageView.cancelImageLoad()
+        if configuration.bookThumbnail != nil {
+            guard var urlComponents = URLComponents(string: configuration.bookThumbnail!) else {
+                return
+            }
+            urlComponents.scheme = "https"
+            guard let url = urlComponents.url else {
+                return
+            }
+            imageView.loadImage(at: url)
+        }
     }
-    
 }
 
 extension UICollectionViewListCell {

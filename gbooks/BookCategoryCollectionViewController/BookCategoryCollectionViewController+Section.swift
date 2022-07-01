@@ -25,5 +25,22 @@ extension BookCategoryCollectionViewController {
                 return NSLocalizedString("Sports", comment: "Sports section name")
             }
         }
+        
+        var subject: Subject {
+            switch self {
+            case .bestSellersFiction:
+                return .fiction
+            case .thriller:
+                return .thriller
+            case .fiction:
+                return .fiction
+            case .bestSellersScience:
+                return .science
+            case .manga:
+                return .manga
+            case .sports:
+                return .sports
+            }
+        }
     }
 }

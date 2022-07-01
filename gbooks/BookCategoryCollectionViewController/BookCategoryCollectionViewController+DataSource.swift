@@ -44,16 +44,12 @@ extension BookCategoryCollectionViewController {
         collectionView.dataSource = dataSource
     }
     
-    func updateSnapshot() {
+    @MainActor func updateSnapshot() {
         var snapshot = Snapshot()
-        var identifierOffset = 0
-        let itemsPerSection = 10
         for section in Section.bestSellersFiction.rawValue...Section.sports.rawValue {
             snapshot.appendSections([section])
-            let maxIdentifier = identifierOffset + itemsPerSection
-            let range = identifierOffset..<maxIdentifier
-            snapshot.appendItems(Array(range).map{"\($0)"}, toSection: section)
-            identifierOffset += itemsPerSection
+            let volumes: [Volume] = volumeData[Section(rawValue: section)!] ?? [Volume(kind: nil, id: "section\(section)", etag: nil, selfLink: nil, volumeInfo: nil, saleInfo: nil, accessInfo: nil, searchInfo: nil)]
+            snapshot.appendItems(volumes.map{vol in vol.id ?? ""}, toSection: section)
         }
         dataSource.apply(snapshot)
     }
@@ -68,9 +64,16 @@ extension BookCategoryCollectionViewController {
     }
     
     private func smallBookPreviewCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
+        let section = Section(rawValue: indexPath.section)!
+        let volumes = volumeData[section] ?? []
+        let vol = volumes.first(where: {$0.id == id})
+        
+        let title = vol?.volumeInfo?.title
+        let thumbnailLink = vol?.volumeInfo?.imageLinks?.thumbnail
+        
         var contentConfiguration = cell.smallBookPreviewConfiguration()
-        contentConfiguration.bookThumbnail = UIImage(named: "sample-cover")
-        contentConfiguration.bookTitle = "Percy Jackson and the Lightning Theif"
+        contentConfiguration.bookThumbnail = thumbnailLink
+        contentConfiguration.bookTitle = title
         cell.contentConfiguration = contentConfiguration
     }
     

@@ -3,6 +3,20 @@ import UIKit
 class BookCategoryCollectionViewController: UICollectionViewController {
     
     var dataSource: DataSource!
+
+    let booksApi = HttpClientGoogleBooksApi(
+        client: HttpClient(
+            session: URLSession.shared,
+            decoder: JSONDecoder()
+        )
+    )
+    @MainActor var volumeData : [BookCategoryCollectionViewController.Section:[Volume]] = [
+        .thriller : [],
+        .fiction : [],
+        .manga : [],
+        .sports : []
+    ]
+    
     internal let iconBarButton: UIBarButtonItem = {
         let icon = UIImageView(image: UIImage(named: "google-logo"))
         icon.accessibilityLabel = NSLocalizedString("GBooks", comment: "gbooks icon accessibility label")
@@ -19,6 +33,30 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         setupDataSource()
         setupSearchButton()
         updateSnapshot()
+        Task {
+            await loadVolumeData()
+            updateSnapshot()
+        }
+    }
+    
+    func loadVolumeData() async {
+        var res = [Section:[Volume]]()
+        await withTaskGroup(of: (Section,[Volume]).self) { group in
+            for section in volumeData.keys {
+                group.addTask(priority: .medium) {
+                    do {
+                        return (section, try await self.booksApi.fetchVolumes(nil, subject: section.subject).items)
+                    } catch {
+                        print("Exception while loading section <\(section)>")
+                    }
+                    return (section, [Volume]())
+                }
+            }
+            for await (section, volumes) in group {
+                res[section] = volumes
+            }
+            volumeData = res
+        }
     }
     
     

@@ -8,7 +8,7 @@ extension BookCategoryCollectionViewController {
         guard views.count > 0, let logoView = views[0] as? LogoImageReusableView else {
             return
         }
-        let y = scrollView.contentOffset.y + 100
+        let y = scrollView.contentOffset.y
         let position = max(0, min(1, (BookCategoryCollectionViewController.logoDisappearOffset - y) / BookCategoryCollectionViewController.logoDisappearOffset))
         logoView.imageView.alpha = position
         

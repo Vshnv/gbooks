@@ -7,7 +7,7 @@ extension BookCategoryCollectionViewController {
         )
         let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .fractionalHeight(0.4))
+                                                      heightDimension: .fractionalHeight(0.5))
         
         let header = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: headerSize,
@@ -15,7 +15,7 @@ extension BookCategoryCollectionViewController {
                         alignment: .top
         )
         header.contentInsets = NSDirectionalEdgeInsets(
-            top: 20,
+            top: 5,
             leading: 5,
             bottom: 5,
             trailing: 5

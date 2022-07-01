@@ -26,6 +26,7 @@ enum Subject: String {
     case fiction = "fiction"
     case manga = "manga"
     case sports = "sports"
+    case science = "science"
     case none = ""
     
     var queryPrefix: String {

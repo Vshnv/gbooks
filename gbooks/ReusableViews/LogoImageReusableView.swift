@@ -7,7 +7,6 @@ class LogoImageReusableView: UICollectionReusableView {
         didSet {
             setNeedsLayout()
             imageView.image = image
-            imageView.alpha = 0.25
             layoutIfNeeded()
         }
     }
@@ -29,13 +28,14 @@ class LogoImageReusableView: UICollectionReusableView {
     }
     
     private func prepareSubviews() {
+        
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }
 }

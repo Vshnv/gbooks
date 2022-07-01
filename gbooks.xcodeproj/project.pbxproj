@@ -29,6 +29,11 @@
 		84130847286D92FE005A5C8B /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130846286D92FE005A5C8B /* Volume.swift */; };
 		84130849286DA04E005A5C8B /* GoogleBooksApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130848286DA04E005A5C8B /* GoogleBooksApi.swift */; };
 		8413084B286DA1A3005A5C8B /* HttpClientGoogleBooksApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413084A286DA1A3005A5C8B /* HttpClientGoogleBooksApi.swift */; };
+		84130851286DDD89005A5C8B /* UIImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130850286DDD89005A5C8B /* UIImageLoader.swift */; };
+		84130853286DDDCE005A5C8B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130852286DDDCE005A5C8B /* ImageLoader.swift */; };
+		84130855286DE6B9005A5C8B /* BestSellersApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130854286DE6B9005A5C8B /* BestSellersApi.swift */; };
+		84130857286DE7BD005A5C8B /* BestSeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130856286DE7BD005A5C8B /* BestSeller.swift */; };
+		84130859286DEABD005A5C8B /* HttpClientBestSellersApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130858286DEABD005A5C8B /* HttpClientBestSellersApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +61,11 @@
 		84130846286D92FE005A5C8B /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
 		84130848286DA04E005A5C8B /* GoogleBooksApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksApi.swift; sourceTree = "<group>"; };
 		8413084A286DA1A3005A5C8B /* HttpClientGoogleBooksApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientGoogleBooksApi.swift; sourceTree = "<group>"; };
+		84130850286DDD89005A5C8B /* UIImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageLoader.swift; sourceTree = "<group>"; };
+		84130852286DDDCE005A5C8B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		84130854286DE6B9005A5C8B /* BestSellersApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellersApi.swift; sourceTree = "<group>"; };
+		84130856286DE7BD005A5C8B /* BestSeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSeller.swift; sourceTree = "<group>"; };
+		84130858286DEABD005A5C8B /* HttpClientBestSellersApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientBestSellersApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +82,7 @@
 		84130803286AFA49005A5C8B = {
 			isa = PBXGroup;
 			children = (
+				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
 				8413080E286AFA49005A5C8B /* gbooks */,
 				8413080D286AFA49005A5C8B /* Products */,
 			);
@@ -99,6 +110,7 @@
 				84130818286AFA4B005A5C8B /* Assets.xcassets */,
 				8413081A286AFA4B005A5C8B /* LaunchScreen.storyboard */,
 				8413081D286AFA4B005A5C8B /* Info.plist */,
+				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
 			);
 			path = gbooks;
 			sourceTree = "<group>";
@@ -143,6 +155,8 @@
 				84130841286D8CD6005A5C8B /* HttpClient.swift */,
 				84130848286DA04E005A5C8B /* GoogleBooksApi.swift */,
 				8413084A286DA1A3005A5C8B /* HttpClientGoogleBooksApi.swift */,
+				84130854286DE6B9005A5C8B /* BestSellersApi.swift */,
+				84130858286DEABD005A5C8B /* HttpClientBestSellersApi.swift */,
 			);
 			path = Http;
 			sourceTree = "<group>";
@@ -151,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				84130846286D92FE005A5C8B /* Volume.swift */,
+				84130856286DE7BD005A5C8B /* BestSeller.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,7 +241,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84130857286DE7BD005A5C8B /* BestSeller.swift in Sources */,
 				84130830286C211B005A5C8B /* SmallBookPreviewContentView+Layout.swift in Sources */,
+				84130859286DEABD005A5C8B /* HttpClientBestSellersApi.swift in Sources */,
 				8413083B286C7B24005A5C8B /* BestSellerContentView.swift in Sources */,
 				84130814286AFA49005A5C8B /* BookCategoryCollectionViewController.swift in Sources */,
 				8413083D286C7C94005A5C8B /* BestSellerContentView+Layout.swift in Sources */,
@@ -237,9 +254,12 @@
 				84130812286AFA49005A5C8B /* SceneDelegate.swift in Sources */,
 				84130835286C2E4F005A5C8B /* LogoImageReusableView.swift in Sources */,
 				84130842286D8CD6005A5C8B /* HttpClient.swift in Sources */,
+				84130851286DDD89005A5C8B /* UIImageLoader.swift in Sources */,
 				84130827286B0E78005A5C8B /* BookCategoryCollectionViewController+DataSource.swift in Sources */,
 				8413083F286D78D5005A5C8B /* BookCategoryCollectionViewController+Animation.swift in Sources */,
 				84130839286C7554005A5C8B /* BookCategoryCollectionViewController+Section.swift in Sources */,
+				84130855286DE6B9005A5C8B /* BestSellersApi.swift in Sources */,
+				84130853286DDDCE005A5C8B /* ImageLoader.swift in Sources */,
 				8413082C286B3ED3005A5C8B /* SmallBookPreviewContentView.swift in Sources */,
 				8413084B286DA1A3005A5C8B /* HttpClientGoogleBooksApi.swift in Sources */,
 				84130849286DA04E005A5C8B /* GoogleBooksApi.swift in Sources */,
