@@ -54,7 +54,16 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         imageView.image = nil
         imageView.cancelImageLoad()
         guard let configuration = configuration as? Configuration else { return }
-        titleLabel.text = configuration.bookTitle
+        let attributedText = NSMutableAttributedString(
+                string: configuration.bookTitle ?? "",
+                attributes: [:]
+        )
+        let range = NSRange(location: 0, length: attributedText.length)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        titleLabel.attributedText = attributedText
         if configuration.bookThumbnail != nil {
             guard var urlComponents = URLComponents(string: configuration.bookThumbnail!) else {
                 return

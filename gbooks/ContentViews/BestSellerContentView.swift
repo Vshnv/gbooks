@@ -75,7 +75,6 @@ class BestSellerContentView: UIView, UIContentView {
         rankLabel.text = configuration.rank?.description ?? ""
         titleLabel.text = configuration.title
         titleLabel.sizeThatFits(CGSize(width: 50, height: 100))
-        descriptionLabel.text = configuration.description
         let attributedText = NSMutableAttributedString(
                 string: configuration.description ?? "",
                 attributes: [:]
