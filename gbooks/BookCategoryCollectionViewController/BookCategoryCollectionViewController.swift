@@ -50,6 +50,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         setupDataSource()
         setupSearchButton()
         collectionView.showActivityIndicator()
+        updateSnapshot()
         Task(priority: .background) {
             await loadVolumeData()
             await loadBestSellerData()
