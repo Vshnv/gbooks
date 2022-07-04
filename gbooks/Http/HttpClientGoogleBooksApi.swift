@@ -7,11 +7,7 @@ class HttpClientGoogleBooksApi: GoogleBooksApi {
     init(client: HttpClient) {
         self.client = client
     }
-    
-    func fetchVolumes(_ query: String?, subject: Subject) async throws -> VolumesFetchResult {
-        return try await fetchVolumes(query, subject: subject)
-    }
-    
+
     func fetchVolumes(_ query: String?, subject: Subject = .none, startIndex: Int = 0, maxResults: Int = 10) async throws -> VolumesFetchResult {
         return try await client.get(
             url: GoogleBooks.apiUrl,
@@ -20,8 +16,11 @@ class HttpClientGoogleBooksApi: GoogleBooksApi {
                 "key" : GoogleBooks.apiKey,
                 "projection" : "lite",
                 "q" : subject.queryPrefix + (query ?? ""),
+                "startIndex" : "\(startIndex)",
+                "maxResults" : "\(maxResults)"
             ],
-            decodeTo: VolumesFetchResult.self)
+            decodeTo: VolumesFetchResult.self
+        )
     }
 }
 

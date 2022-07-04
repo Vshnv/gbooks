@@ -20,6 +20,16 @@ extension BookSearchViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: searchElementCellRegistration, for: indexPath, item: itemIdentifier)
             }
         })
+        let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind, handler: self.supplementaryViewFooterRegistrationHandler)
+       
+        dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
+            switch elementKind {
+            case ActivityIndicatorReusableView.elementKind:
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: indexPath)
+            default:
+                fatalError("Unknown element kind found in Book Category Layout")
+            }
+        }
         collectionView.dataSource = dataSource
         updateSnapshot()
     }
@@ -34,8 +44,8 @@ extension BookSearchViewController {
         case .searching:
             snapshot.appendItems((0...15).map{ "\($0)" }, toSection: 0)
 
-        case .results(let data, let hasMore):
-            snapshot.appendItems(data.map{ $0.id ?? "" }, toSection: 0)
+        case .results(let data, _):
+            snapshot.appendItems(data.map{$0.id!}, toSection: 0)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -51,5 +61,10 @@ extension BookSearchViewController {
         contentConfiguration.bookThumbnail = thumbnailLink
         contentConfiguration.bookTitle = title
         cell.contentConfiguration = contentConfiguration
+    }
+    
+    private func supplementaryViewFooterRegistrationHandler(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) {
+        
+        
     }
 }

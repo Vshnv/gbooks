@@ -6,6 +6,23 @@ extension BookSearchViewController {
         let layout = UICollectionViewCompositionalLayout(
             sectionProvider: compositionalLayoutSectionProvider
         )
+        let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .fractionalHeight(0.2))
+        
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: footerSize,
+                        elementKind: ActivityIndicatorReusableView.elementKind,
+                        alignment: .bottom
+        )
+        footer.contentInsets = NSDirectionalEdgeInsets(
+            top: 5,
+            leading: 5,
+            bottom: 5,
+            trailing: 5
+        )
+        layoutConfiguration.boundarySupplementaryItems = [footer]
+        layout.configuration = layoutConfiguration
         return layout
     }
     

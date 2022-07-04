@@ -90,15 +90,15 @@ extension BookCategoryCollectionViewController {
     private func createCategorySection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .estimated(150),
-                heightDimension: .estimated(200)
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
             )
         )
 
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .estimated(150),
-                heightDimension: .estimated(200)
+                widthDimension: .fractionalWidth(0.45),
+                heightDimension: .fractionalWidth(0.6)
             ),
             subitems: [item]
         )

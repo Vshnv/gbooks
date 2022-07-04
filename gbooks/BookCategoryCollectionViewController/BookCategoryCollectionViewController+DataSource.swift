@@ -42,7 +42,7 @@ extension BookCategoryCollectionViewController {
                 case .error(_):
                     return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
                 }
-            default:
+            @unknown default:
                 fatalError("Unknown section inserted")
             }
         })

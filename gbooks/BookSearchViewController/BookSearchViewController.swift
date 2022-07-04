@@ -12,7 +12,9 @@ class BookSearchViewController: UICollectionViewController {
         )
     )
     
+    var query: String?
     var searchState: VolumeSearchState = .idle
+    var isLoadingMore: Bool = false
     var searchTask: Task<Void, Error>?
     
     init() {
@@ -33,10 +35,5 @@ class BookSearchViewController: UICollectionViewController {
         let searchBar = UISearchBar()
         navigationItem.titleView = searchBar
         searchBar.delegate = self
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-
-        return false
     }
 }

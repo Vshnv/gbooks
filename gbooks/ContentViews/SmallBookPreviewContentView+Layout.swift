@@ -17,14 +17,12 @@ extension SmallBookPreviewContentView {
         backgroundColor = .systemGray6
         
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 200),
-            widthAnchor.constraint(equalToConstant: 150),
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 2.5),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2.5),
             visualEffectView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            visualEffectView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 150),
+            visualEffectView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.15),
             visualEffectView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             visualEffectView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: visualEffectView.topAnchor),
