@@ -63,6 +63,7 @@ extension BookCategoryCollectionViewController {
     }
     
     @MainActor func updateSnapshot() {
+        collectionView.hideActivityIndicator()
         var snapshot = Snapshot()
         
         for sectionIndex in Section.bestSellersHealth.rawValue...Section.sports.rawValue {
@@ -139,7 +140,6 @@ extension BookCategoryCollectionViewController {
         
         let title = vol.volumeInfo?.title
         let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail
-        
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = thumbnailLink
         contentConfiguration.bookTitle = title

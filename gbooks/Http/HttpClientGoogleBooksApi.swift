@@ -14,7 +14,8 @@ class HttpClientGoogleBooksApi: GoogleBooksApi {
             parameters: [
                 "key" : GoogleBooks.apiKey,
                 "projection" : "lite",
-                "q" : subject.queryPrefix + (query ?? "")
+                "q" : subject.queryPrefix + (query ?? ""),
+                "maxResults" : "30"
             ],
             decodeTo: VolumesFetchResult.self)
     }

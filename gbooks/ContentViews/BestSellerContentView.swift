@@ -67,6 +67,10 @@ class BestSellerContentView: UIView, UIContentView {
     }
     
     private func configure(configuration: UIContentConfiguration) {
+        backgroundImageView.image = nil
+        thumbnailImageView.image = nil
+        backgroundImageView.cancelImageLoad()
+        thumbnailImageView.cancelImageLoad()
         guard let configuration = configuration as? Configuration else { return }
         rankLabel.text = configuration.rank?.description ?? ""
         titleLabel.text = configuration.title
@@ -81,10 +85,6 @@ class BestSellerContentView: UIView, UIContentView {
         paragraphStyle.lineBreakMode = .byTruncatingTail
         attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
         descriptionLabel.attributedText = attributedText
-        backgroundImageView.image = nil
-        thumbnailImageView.image = nil
-        backgroundImageView.cancelImageLoad()
-        thumbnailImageView.cancelImageLoad()
         if configuration.thumbnailImage != nil {
             guard var urlComponents = URLComponents(string: configuration.thumbnailImage!) else {
                 return
@@ -101,9 +101,10 @@ class BestSellerContentView: UIView, UIContentView {
 
 class LoadingBestSellerCell: UICollectionViewCell {
     static let reuseIdentifier = "LoadingBestSellerCell"
+    
+    private let view = UIView()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         let activityIndicator = UIActivityIndicatorView()
@@ -122,9 +123,23 @@ class LoadingBestSellerCell: UICollectionViewCell {
             activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: {
-            view.alpha = 0.25
+        view.alpha = 1
+        view.backgroundColor = .systemGray5
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
+            self?.view.alpha = 0.25
         }, completion: nil)
+    }
+    
+    override func prepareForReuse() {
+        Task {
+            await MainActor.run {
+                view.alpha = 1
+                view.backgroundColor = .systemGray5
+                UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
+                    self?.view.alpha = 0.25
+                }, completion: nil)
+            }
+        }
     }
 
     

@@ -55,7 +55,6 @@ extension UIView {
         let view = remnant ?? UIActivityIndicatorView()
         UIView.activeIndicators[self] = view
         view.translatesAutoresizingMaskIntoConstraints = false
-        translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         view.startAnimating()
         

@@ -49,7 +49,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         collectionView.collectionViewLayout = createRootCollectionLayout()
         setupDataSource()
         setupSearchButton()
-        //updateSnapshot()
+        collectionView.showActivityIndicator()
         Task(priority: .background) {
             await loadVolumeData()
             await loadBestSellerData()

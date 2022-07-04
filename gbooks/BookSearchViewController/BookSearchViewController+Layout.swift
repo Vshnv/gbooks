@@ -13,26 +13,26 @@ extension BookSearchViewController {
         let item1 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(0.45),
-                heightDimension: .estimated(210)
+                heightDimension: .fractionalWidth(0.6)
             )
         )
         item1.edgeSpacing = NSCollectionLayoutEdgeSpacing(
             leading: .fixed(5),
-            top: .fixed(60),
-            trailing: .fixed(1),
-            bottom: .fixed(5)
+            top: .fixed(5),
+            trailing: .fixed(10),
+            bottom: .fixed(60)
         )
         let item2 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(0.45),
-                heightDimension: .estimated(210)
+                heightDimension: .fractionalWidth(0.6)
             )
         )
         item2.edgeSpacing = NSCollectionLayoutEdgeSpacing(
             leading: .fixed(1),
-            top: .fixed(5),
+            top: .fixed(60),
             trailing: .fixed(5),
-            bottom: .fixed(60)
+            bottom: .fixed(5)
         )
 
         let group = NSCollectionLayoutGroup.horizontal(

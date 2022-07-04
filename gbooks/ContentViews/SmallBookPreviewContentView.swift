@@ -6,11 +6,14 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         var bookThumbnail: String?
         var bookTitle: String?
         func makeContentView() -> UIView & UIContentView {
+            
             return SmallBookPreviewContentView(self)
         }
         
         func updated(for state: UIConfigurationState) -> SmallBookPreviewContentView.Configuration {
-            self
+            guard let state = state as? UICellConfigurationState else { return self }
+            print(state.isReordering)
+            return self
         }
     }
     
@@ -48,10 +51,10 @@ class SmallBookPreviewContentView: UIView, UIContentView {
     }
     
     private func configure(configuration: UIContentConfiguration) {
-        guard let configuration = configuration as? Configuration else { return }
-        titleLabel.text = configuration.bookTitle
         imageView.image = nil
         imageView.cancelImageLoad()
+        guard let configuration = configuration as? Configuration else { return }
+        titleLabel.text = configuration.bookTitle
         if configuration.bookThumbnail != nil {
             guard var urlComponents = URLComponents(string: configuration.bookThumbnail!) else {
                 return
@@ -63,6 +66,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
             imageView.loadImage(at: url)
         }
     }
+
 }
 
 class LoadingSmallBookPreviewCell: UICollectionViewCell {
@@ -82,11 +86,19 @@ class LoadingSmallBookPreviewCell: UICollectionViewCell {
             activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
-
-            self?.contentView.alpha = 0.25
-
-        }, completion: nil)
+        prepareForReuse()
+    }
+    
+    override func prepareForReuse() {
+        Task {
+            await MainActor.run {
+                contentView.alpha = 1
+                contentView.backgroundColor = .systemGray5
+                UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
+                    self?.contentView.alpha = 0.25
+                }, completion: nil)
+            }
+        }
     }
 
     
