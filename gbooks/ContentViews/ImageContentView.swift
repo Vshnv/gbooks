@@ -1,18 +1,18 @@
 import UIKit
 
-class TextViewContentView: UIView, UIContentView {
+class ImageContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
-        var edittable: Bool = false
-        var text: String? = ""
+        var imageUrl: String?
+        
         func makeContentView() -> UIView & UIContentView {
-            return TextViewContentView(self)
+            return ImageContentView(self)
         }
-        func updated(for state: UIConfigurationState) -> TextViewContentView.Configuration {
+        func updated(for state: UIConfigurationState) -> ImageContentView.Configuration {
             self
         }
     }
     
-    private let textView = UITextView()
+    private let imageView = UIImageView()
     
     var configuration: UIContentConfiguration {
         didSet {
@@ -27,7 +27,8 @@ class TextViewContentView: UIView, UIContentView {
     init(_ contentConfiguration: UIContentConfiguration) {
         self.configuration = contentConfiguration
         super.init(frame: .zero)
-        setupLayout(textView: textView)
+        setupLayout(imageView: imageView)
+        imageView.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
@@ -36,19 +37,20 @@ class TextViewContentView: UIView, UIContentView {
     
     func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
-        textView.isEditable = configuration.edittable
-        textView.text = configuration.text
-        textView.sizeToFit()
-        sizeToFit()
-        layoutIfNeeded()
+        guard var urlComponents = URLComponents(string: configuration.imageUrl!) else {
+            return
+        }
+        urlComponents.scheme = "https"
+        guard let url = urlComponents.url else {
+            return
+        }
+        imageView.loadImage(at: url)
     }
-    
     
 }
 
 extension UICollectionViewListCell {
-    func textViewConfiguration() -> TextViewContentView.Configuration {
-        TextViewContentView.Configuration()
+    func imageContentConfiguration() -> ImageContentView.Configuration {
+        ImageContentView.Configuration()
     }
 }
-

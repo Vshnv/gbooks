@@ -32,7 +32,6 @@ class BookSearchViewController: UICollectionViewController {
     private func setupSearchBar() {
         let searchBar = UISearchBar()
         navigationItem.titleView = searchBar
-        navigationItem.rightBarButtonItem = navigationItem.leftBarButtonItem
         searchBar.delegate = self
     }
     

@@ -114,11 +114,5 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         searchButton.accessibilityLabel = NSLocalizedString("Search Books", comment: "search books accessibility label")
         navigationItem.rightBarButtonItem = searchButton
     }
-
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-
-        return false
-    }
     
 }

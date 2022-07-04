@@ -11,8 +11,6 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         }
         
         func updated(for state: UIConfigurationState) -> SmallBookPreviewContentView.Configuration {
-            guard let state = state as? UICellConfigurationState else { return self }
-            print(state.isReordering)
             return self
         }
     }
