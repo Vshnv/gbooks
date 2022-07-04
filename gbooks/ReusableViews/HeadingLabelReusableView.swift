@@ -13,6 +13,8 @@ class HeadingLabelReusableView: UICollectionReusableView {
     
     private let label: UILabel = UILabel()
     
+    private let imageView: UIImageView = UIImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareSubviews()
@@ -24,6 +26,9 @@ class HeadingLabelReusableView: UICollectionReusableView {
     
     private func prepareSubviews() {
         addSubview(label)
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "ellipsis")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 20)
@@ -31,7 +36,11 @@ class HeadingLabelReusableView: UICollectionReusableView {
             label.topAnchor.constraint(equalTo: topAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor),
             label.trailingAnchor.constraint(equalTo: trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor)
+            label.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 25),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
     }
 }

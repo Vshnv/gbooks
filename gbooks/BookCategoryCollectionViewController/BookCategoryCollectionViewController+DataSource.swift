@@ -150,6 +150,7 @@ extension BookCategoryCollectionViewController {
         
         let section = Section(rawValue: indexPath.section)
         headerView.text = section?.name ?? ""
+        
     }
     
     private func supplementaryViewHeaderRegistrationHandler(logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) {
