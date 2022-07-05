@@ -13,14 +13,15 @@ protocol GoogleBooksApi {
      * - parameter subject: subject of book to be searched
      * - parameter startIndex: offset to actual query result from where response starts
      * - parameter maxResults: maximum number of volumes to be included in the response
-     * - returns: volumes along with a some extra information about the results of the given query
+     * - returns: list of volumes  along with a some extra information about the results of the given query
      */
     func fetchVolumes(_ query: String?, subject: Subject, startIndex: Int, maxResults: Int) async throws -> VolumesFetchResult
+    
     /**
      * Fetches a volume matching the specific isbn code
      *
      * - parameter isbn: unique isbn code of required book
-     * - returns: fetch result with either a single or empty item collection depending on validity of isbn code
+     * - returns: fetched result with either a single or empty item collection depending on validity of isbn code
      */
     func fetchVolumes(byIsbn isbn: String) async throws -> VolumesFetchResult
 }
