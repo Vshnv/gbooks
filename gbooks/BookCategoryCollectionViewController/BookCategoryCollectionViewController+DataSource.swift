@@ -159,7 +159,7 @@ extension BookCategoryCollectionViewController {
             default:
                 prefetched = []
             }
-            print(prefetched)
+            self?.navigationController?.pushViewController(CategoryListViewController(data: prefetched), animated: true)
         }
     }
     

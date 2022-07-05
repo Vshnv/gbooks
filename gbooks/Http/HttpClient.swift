@@ -26,7 +26,7 @@ class HttpClient {
             let volumeResponse = try decoder.decode(decodeTo, from: data)
             return volumeResponse
         } catch {
-            print(String(bytes: data, encoding: .ascii))
+            print(String(bytes: data, encoding: .ascii) ?? "<invalid response>")
             throw error
         }
     }
