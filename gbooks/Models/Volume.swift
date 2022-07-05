@@ -7,7 +7,7 @@ struct VolumesFetchResult: Codable {
 }
 
 /*
-    Refers to a LITE projection Volume from Google Books API v1 (refer to documentation)
+    Refers to a LITE projection Volume from Google Books API v1 (https://developers.google.com/books)
  */
 struct Volume: Codable {
     let kind: String?
