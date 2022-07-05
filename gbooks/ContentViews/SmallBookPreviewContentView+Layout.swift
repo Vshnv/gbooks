@@ -3,7 +3,7 @@ import UIKit
 extension SmallBookPreviewContentView {
     internal func setupLayout(imageView: UIImageView, titleLabel: UILabel) {
         clipsToBounds = true
-        layer.cornerRadius = 20
+        layer.cornerRadius = 10
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -17,10 +17,10 @@ extension SmallBookPreviewContentView {
         backgroundColor = .systemGray6
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 2.5),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2.5),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             visualEffectView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
             visualEffectView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.15),
             visualEffectView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),

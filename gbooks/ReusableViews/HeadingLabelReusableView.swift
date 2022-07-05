@@ -11,6 +11,8 @@ class HeadingLabelReusableView: UICollectionReusableView {
         }
     }
     
+    var onTap: () -> Void = {}
+    
     private let label: UILabel = UILabel()
     
     private let imageView: UIImageView = UIImageView()
@@ -18,6 +20,12 @@ class HeadingLabelReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareSubviews()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onViewTapped))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func onViewTapped() {
+        onTap()
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +36,7 @@ class HeadingLabelReusableView: UICollectionReusableView {
         addSubview(label)
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "ellipsis")
+        imageView.image = UIImage(systemName: "chevron.right")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 20)
@@ -39,8 +47,7 @@ class HeadingLabelReusableView: UICollectionReusableView {
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 25),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+
         ])
     }
 }

@@ -148,9 +148,19 @@ extension BookCategoryCollectionViewController {
     
     private func supplementarySectionHeaderRegistrationHandler(headerView: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) {
         
-        let section = Section(rawValue: indexPath.section)
-        headerView.text = section?.name ?? ""
-        
+        let section = Section(rawValue: indexPath.section)!
+        headerView.text = section.name
+        headerView.onTap = { [weak self] in
+            let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
+            let prefetched: [Volume]
+            switch volumesState {
+            case .loaded(let data):
+                prefetched = data
+            default:
+                prefetched = []
+            }
+            print(prefetched)
+        }
     }
     
     private func supplementaryViewHeaderRegistrationHandler(logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) {
