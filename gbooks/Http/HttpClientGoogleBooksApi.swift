@@ -22,6 +22,19 @@ class HttpClientGoogleBooksApi: GoogleBooksApi {
             decodeTo: VolumesFetchResult.self
         )
     }
+    
+    func fetchVolumes(byIsbn isbn: String) async throws -> VolumesFetchResult {
+        return try await client.get(
+            url: GoogleBooks.apiUrl,
+            path: GoogleBooks.fetchVolumesPath,
+            parameters: [
+                "key" : GoogleBooks.apiKey,
+                "projection" : "lite",
+                "q" : "isbn:\(isbn)",
+            ],
+            decodeTo: VolumesFetchResult.self
+        )
+    }
 }
 
 

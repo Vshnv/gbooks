@@ -19,7 +19,11 @@ extension BookCategoryCollectionViewController {
             let bestSellersState = bestSellerData[section] ?? .error(message: "Not Found")
             switch bestSellersState {
             case .loaded(let data):
-                break
+                let bestSeller = data[indexPath.item]
+                let task = Task(priority: .background) {
+                    return try await booksApi.fetchVolumes(byIsbn: bestSeller.primaryIsbn13).items.first
+                }
+                navigationController?.pushViewController(BookDetailsViewController(volumeTask: task), animated: true)
             default:
                 break
             }
