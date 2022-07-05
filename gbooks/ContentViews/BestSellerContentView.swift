@@ -88,7 +88,6 @@ class BestSellerContentView: UIView, UIContentView {
             guard var urlComponents = URLComponents(string: configuration.thumbnailImage!) else {
                 return
             }
-            urlComponents.scheme = "https"
             guard let url = urlComponents.url else {
                 return
             }
