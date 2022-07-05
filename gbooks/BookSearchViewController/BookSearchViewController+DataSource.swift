@@ -51,7 +51,7 @@ extension BookSearchViewController {
     }
     
     private func searchElementCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
-        guard case .results(let data, let hasMore) = searchState else {
+        guard case .results(let data,_) = searchState else {
             return
         }
         let vol = data[indexPath.item]
