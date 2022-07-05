@@ -38,7 +38,7 @@ class BookDetailsViewController: UICollectionViewController {
         case (_, .header(let title)):
             cell.contentConfiguration = headerConfiguration(for: cell, with: title)
         case (.cover, .image):
-            cell.contentConfiguration = coverImageConfiguration(for: cell, with: volume.volumeInfo?.imageLinks?.thumbnail ?? "")
+            cell.contentConfiguration = coverImageConfiguration(for: cell, with: volume.volumeInfo?.imageLinks?.thumbnail ?? volume.volumeInfo?.imageLinks?.smallThumbnail)
         case (.publishDetails, .publisherView):
             cell.contentConfiguration = textViewConfiguration(for: cell, with: volume.volumeInfo?.publisher)
         case (.publishDetails, .publishDateView):

@@ -13,12 +13,14 @@ class CategoryListViewController: UICollectionViewController {
     )
     
     var data: [Volume]
+    var subject: Subject
     var hasMore: Bool = true
     var isLoadingMore: Bool = false
     var loadTask: Task<Void, Error>?
     
-    init(data: [Volume]) {
+    init(data: [Volume], subject: Subject) {
         self.data = data
+        self.subject = subject
         super.init(collectionViewLayout: CategoryListViewController.createRootCollectionLayout())
     }
     
@@ -29,5 +31,6 @@ class CategoryListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
+        navigationItem.title = subject.rawValue
     }
 }

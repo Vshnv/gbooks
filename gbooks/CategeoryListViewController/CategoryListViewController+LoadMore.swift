@@ -1,12 +1,12 @@
-import UIKit
 import Foundation
+import UIKit
 
-extension BookSearchViewController {
+extension CategoryListViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         guard elementKind == ActivityIndicatorReusableView.elementKind, let indicator = view as? ActivityIndicatorReusableView else {
             return
         }
-        guard case .results(_, let hasMore) = searchState, hasMore, searchTask == nil else {
+        if !hasMore || loadTask != nil {
             return
         }
         tryLoadMore()
@@ -21,20 +21,14 @@ extension BookSearchViewController {
     }
     
     func tryLoadMore() {
-        if searchTask != nil {
+        if loadTask != nil {
             return
         }
-        searchTask = Task(priority: .background) {
-            var data = [Volume]()
+        loadTask = Task(priority: .background) {
+            var data = self.data
             var scrollToTop = false
-            switch searchState {
-            case .results(let currentData, _):
-                data.append(contentsOf: currentData)
-            default:
-                break
-            }
             do {
-                let results = try await booksApi.fetchVolumes(query, startIndex: data.count, maxResults: 12*3)
+                let results = try await booksApi.fetchVolumes(nil, subject: subject, startIndex: data.count, maxResults: 12*3)
                 let newData = results.items
                 data.append(contentsOf: newData)
                 let total = results.totalItems
@@ -42,26 +36,16 @@ extension BookSearchViewController {
                 if data.count == newData.count {
                     scrollToTop = true
                 }
-                searchState = VolumeSearchState.results(result: data.uniqueBy{ $0.id! }, hasMore: fetchedSize < total)
+                hasMore = fetchedSize < total
+                self.data = data.uniqueBy(by: {$0.id})
             } catch {
-                searchState = .idle
+                print(error)
             }
             updateSnapshot()
-            searchTask = nil
+            loadTask = nil
             if scrollToTop {
                 collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: true)
             }
         }
-    }
-}
-
-extension Array {
-    func uniqueBy<T: Equatable>(by f: (Element) -> T)-> [Element] {
-        var uniqueValues: [Element] = []
-        forEach { item in
-            guard !uniqueValues.contains(where: { f(item) == f($0) }) else { return }
-            uniqueValues.append(item)
-        }
-        return uniqueValues
     }
 }

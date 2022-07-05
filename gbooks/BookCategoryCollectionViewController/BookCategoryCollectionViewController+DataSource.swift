@@ -139,7 +139,7 @@ extension BookCategoryCollectionViewController {
         let vol = volumes[indexPath.item]
         
         let title = vol.volumeInfo?.title
-        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail
+        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = thumbnailLink
         contentConfiguration.bookTitle = title
@@ -151,15 +151,22 @@ extension BookCategoryCollectionViewController {
         let section = Section(rawValue: indexPath.section)!
         headerView.text = section.name
         headerView.onTap = { [weak self] in
-            let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
             let prefetched: [Volume]
-            switch volumesState {
-            case .loaded(let data):
-                prefetched = data
-            default:
+            switch section {
+            case .bestSellersHealth:
+                fallthrough
+            case .bestSellersTravel:
                 prefetched = []
+            default:
+                let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
+                switch volumesState {
+                case .loaded(let data):
+                    prefetched = data
+                default:
+                    prefetched = []
+                }
             }
-            self?.navigationController?.pushViewController(CategoryListViewController(data: prefetched), animated: true)
+            self?.navigationController?.pushViewController(CategoryListViewController(data: prefetched, subject: section.subject), animated: true)
         }
     }
     

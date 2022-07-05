@@ -50,15 +50,20 @@ extension CategoryListViewController {
 
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
+                widthDimension: .fractionalWidth(0.99),
                 heightDimension: .estimated(210)
             ),
             subitems: [item1, item2, item3]
         )
-        group.interItemSpacing = .flexible(2)
-        
+        group.interItemSpacing = .flexible(1)
+        group.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+            leading: .fixed(2),
+            top: .fixed(2),
+            trailing: .fixed(2),
+            bottom: .fixed(2)
+        )
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 2
+        section.interGroupSpacing = 1
         return section
     }
 }

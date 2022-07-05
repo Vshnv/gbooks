@@ -66,7 +66,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
             guard var urlComponents = URLComponents(string: configuration.bookThumbnail!) else {
                 return
             }
-            urlComponents.scheme = "https"
+            //urlComponents.scheme = "https"
             guard let url = urlComponents.url else {
                 return
             }

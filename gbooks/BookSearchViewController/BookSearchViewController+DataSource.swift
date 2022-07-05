@@ -56,7 +56,7 @@ extension BookSearchViewController {
         }
         let vol = data[indexPath.item]
         let title = vol.volumeInfo?.title
-        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail
+        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
         var contentConfiguration = cell.smallBookPreviewConfiguration()
         contentConfiguration.bookThumbnail = thumbnailLink
         contentConfiguration.bookTitle = title

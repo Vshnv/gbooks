@@ -51,7 +51,7 @@ enum Subject: String {
 
 
 fileprivate enum GoogleBooks {
-    static let apiKey = "AIzaSyCfaV244QzDBPAaOdDaCOkfcYxGvwMzVhA"
+    static let apiKey = "AIzaSyA2m3n1rT2ACRzJfbqeqCjkM3yZ6RXmt24"
     static let apiUrl = "https://www.googleapis.com"
     static let fetchVolumesPath = "/books/v1/volumes"
 }

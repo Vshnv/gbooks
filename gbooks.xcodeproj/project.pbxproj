@@ -13,6 +13,7 @@
 		8405E7832874066200D3E602 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405E7822874066200D3E602 /* CategoryListViewController.swift */; };
 		8405E785287406AC00D3E602 /* CategoryListViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405E784287406AC00D3E602 /* CategoryListViewController+Layout.swift */; };
 		8405E7872874081E00D3E602 /* CategoryListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405E7862874081E00D3E602 /* CategoryListViewController+DataSource.swift */; };
+		8405E78928740F2700D3E602 /* CategoryListViewController+LoadMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405E78828740F2700D3E602 /* CategoryListViewController+LoadMore.swift */; };
 		84130810286AFA49005A5C8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413080F286AFA49005A5C8B /* AppDelegate.swift */; };
 		84130812286AFA49005A5C8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130811286AFA49005A5C8B /* SceneDelegate.swift */; };
 		84130814286AFA49005A5C8B /* BookCategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84130813286AFA49005A5C8B /* BookCategoryCollectionViewController.swift */; };
@@ -64,6 +65,7 @@
 		8405E7822874066200D3E602 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		8405E784287406AC00D3E602 /* CategoryListViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryListViewController+Layout.swift"; sourceTree = "<group>"; };
 		8405E7862874081E00D3E602 /* CategoryListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryListViewController+DataSource.swift"; sourceTree = "<group>"; };
+		8405E78828740F2700D3E602 /* CategoryListViewController+LoadMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryListViewController+LoadMore.swift"; sourceTree = "<group>"; };
 		8413080C286AFA49005A5C8B /* gbooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gbooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413080F286AFA49005A5C8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84130811286AFA49005A5C8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				8405E7822874066200D3E602 /* CategoryListViewController.swift */,
 				8405E784287406AC00D3E602 /* CategoryListViewController+Layout.swift */,
 				8405E7862874081E00D3E602 /* CategoryListViewController+DataSource.swift */,
+				8405E78828740F2700D3E602 /* CategoryListViewController+LoadMore.swift */,
 			);
 			path = CategeoryListViewController;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				84130849286DA04E005A5C8B /* GoogleBooksApi.swift in Sources */,
 				84130847286D92FE005A5C8B /* Volume.swift in Sources */,
 				84130832286C23A9005A5C8B /* HeadingLabelReusableView.swift in Sources */,
+				8405E78928740F2700D3E602 /* CategoryListViewController+LoadMore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

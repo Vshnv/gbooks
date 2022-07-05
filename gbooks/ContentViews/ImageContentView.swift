@@ -28,7 +28,7 @@ class ImageContentView: UIView, UIContentView {
         self.configuration = contentConfiguration
         super.init(frame: .zero)
         setupLayout(imageView: imageView)
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .systemGray6
     }
     
     required init?(coder: NSCoder) {
