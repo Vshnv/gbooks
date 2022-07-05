@@ -1,5 +1,8 @@
 import UIKit
 
+/**
+ * Supplementary view with activity indicator to animate 'loading' state
+ */
 class ActivityIndicatorReusableView: UICollectionReusableView {
     static var elementKind: String { "UICollectionView.elementKindSectionHeader" }
     

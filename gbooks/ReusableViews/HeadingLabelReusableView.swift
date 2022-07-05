@@ -1,5 +1,8 @@
 import UIKit
 
+/**
+ * Supplementary header label reusable view with onTap guesture and disclosure indicator
+ */
 class HeadingLabelReusableView: UICollectionReusableView {
     static var elementKind: String { UICollectionView.elementKindSectionHeader }
     

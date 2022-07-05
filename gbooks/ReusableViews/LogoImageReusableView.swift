@@ -1,5 +1,8 @@
 import UIKit
 
+/**
+ * Supplementary view with a centered image for loo headers
+ */
 class LogoImageReusableView: UICollectionReusableView {
     static var elementKind: String { "logo-image" }
     
