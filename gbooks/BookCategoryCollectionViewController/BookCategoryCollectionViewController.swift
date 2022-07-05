@@ -71,7 +71,7 @@ class BookCategoryCollectionViewController: UICollectionViewController {
             for section in volumeData.keys {
                 group.addTask(priority: .medium) {
                     do {
-                        return (section, try await self.booksApi.fetchVolumes(nil, subject: section.subject).items)
+                        return (section, try await self.booksApi.fetchVolumes(nil, subject: section.subject, maxResults: 12).items)
                     } catch {
                         print("Exception while loading section <\(section)>")
                         print(error)
