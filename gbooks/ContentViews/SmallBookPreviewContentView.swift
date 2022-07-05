@@ -88,8 +88,6 @@ class LoadingSmallBookPreviewCell: UICollectionViewCell {
         activityIndicator.startAnimating()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 200),
-            contentView.widthAnchor.constraint(equalToConstant: 150),
             activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
