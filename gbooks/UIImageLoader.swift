@@ -49,7 +49,7 @@ extension UIImageView {
 }
 extension UIView {
     private static var activeIndicators = [UIView: UIActivityIndicatorView]()
-    private static let activityIndicatorTag = 33456655
+
     func showActivityIndicator() {
         let remnant = UIView.activeIndicators[self]
         let view = remnant ?? UIActivityIndicatorView()
