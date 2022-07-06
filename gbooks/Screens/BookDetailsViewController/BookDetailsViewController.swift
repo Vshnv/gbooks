@@ -5,13 +5,6 @@ class BookDetailsViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
-    let booksApi = HttpClientGoogleBooksApi(
-        client: HttpClient(
-            session: URLSession.shared,
-            decoder: JSONDecoder()
-        )
-    )
-    
     var volume: Volume?
 
     private var dataSource: DataSource!

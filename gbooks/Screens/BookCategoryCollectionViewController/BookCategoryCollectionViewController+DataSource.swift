@@ -166,7 +166,10 @@ extension BookCategoryCollectionViewController {
                     prefetched = []
                 }
             }
-            self?.navigationController?.pushViewController(CategoryListViewController(data: prefetched, subject: section.subject), animated: true)
+            guard let self = self else {
+                return
+            }
+            self.navigationController?.pushViewController(CategoryListViewController(booksApi: self.booksApi, data: prefetched, subject: section.subject), animated: true)
         }
     }
     

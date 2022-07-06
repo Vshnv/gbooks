@@ -5,12 +5,7 @@ class CategoryListViewController: UICollectionViewController {
     
     var dataSource: DataSource!
     
-    let booksApi = HttpClientGoogleBooksApi(
-        client: HttpClient(
-            session: URLSession.shared,
-            decoder: JSONDecoder()
-        )
-    )
+    let booksApi: GoogleBooksApi
     
     var data: [Volume]
     var subject: Subject
@@ -18,7 +13,8 @@ class CategoryListViewController: UICollectionViewController {
     var isLoadingMore: Bool = false
     var loadTask: Task<Void, Error>?
     
-    init(data: [Volume], subject: Subject) {
+    init(booksApi: GoogleBooksApi, data: [Volume], subject: Subject) {
+        self.booksApi = booksApi
         self.data = data
         self.subject = subject
         super.init(collectionViewLayout: CategoryListViewController.createRootCollectionLayout())

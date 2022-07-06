@@ -5,19 +5,14 @@ class BookSearchViewController: UICollectionViewController {
     
     var dataSource: DataSource!
     
-    let booksApi = HttpClientGoogleBooksApi(
-        client: HttpClient(
-            session: URLSession.shared,
-            decoder: JSONDecoder()
-        )
-    )
-    
+    let booksApi: GoogleBooksApi
     var query: String?
     var searchState: VolumeSearchState = .idle
     var isLoadingMore: Bool = false
     var searchTask: Task<Void, Error>?
     
-    init() {
+    init(booksApi: GoogleBooksApi) {
+        self.booksApi = booksApi
         super.init(collectionViewLayout: BookSearchViewController.createRootCollectionLayout())
     }
     
@@ -36,4 +31,5 @@ class BookSearchViewController: UICollectionViewController {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
     }
+
 }

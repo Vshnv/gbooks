@@ -34,7 +34,7 @@ extension BookSearchViewController {
                 break
             }
             do {
-                let results = try await booksApi.fetchVolumes(query, startIndex: data.count, maxResults: 12*3)
+                let results = try await booksApi.fetchVolumes(query, subject: .none, startIndex: data.count, maxResults: 12*3)
                 let newData = results.items
                 data.append(contentsOf: newData)
                 let total = results.totalItems

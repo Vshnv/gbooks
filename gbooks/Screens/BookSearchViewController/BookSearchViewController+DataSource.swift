@@ -6,7 +6,19 @@ extension BookSearchViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
     
     internal func setupDataSource() {
-        let searchElementCellRegistration = UICollectionView.CellRegistration(handler: searchElementCellRegistrationHandler)
+        let searchElementCellRegistration = UICollectionView.CellRegistration{ [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+            guard case .results(let data,_) = self?.searchState else {
+                return
+            }
+            let vol = data[indexPath.item]
+            let title = vol.volumeInfo?.title
+            let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
+            var contentConfiguration = cell.smallBookPreviewConfiguration()
+            contentConfiguration.bookThumbnail = thumbnailLink
+            contentConfiguration.bookTitle = title
+            cell.contentConfiguration = contentConfiguration
+        }
+        
         collectionView.register(LoadingSmallBookPreviewCell.self, forCellWithReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { [weak self] (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
             switch self?.searchState {
@@ -20,12 +32,12 @@ extension BookSearchViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: searchElementCellRegistration, for: indexPath, item: itemIdentifier)
             }
         })
-        let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind, handler: self.supplementaryViewFooterRegistrationHandler)
+        let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind) {(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) in}
        
-        dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
+        dataSource.supplementaryViewProvider = { [weak self] supplementaryView, elementKind, indexPath in
             switch elementKind {
             case ActivityIndicatorReusableView.elementKind:
-                return self.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: indexPath)
+                return self?.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: indexPath)
             default:
                 fatalError("Unknown element kind found in Book Category Layout")
             }
@@ -35,7 +47,6 @@ extension BookSearchViewController {
     }
     
     @MainActor func updateSnapshot() {
-        collectionView.hideActivityIndicator()
         var snapshot = Snapshot()
         snapshot.appendSections([0])
         switch searchState {
@@ -49,19 +60,4 @@ extension BookSearchViewController {
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
-    private func searchElementCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
-        guard case .results(let data,_) = searchState else {
-            return
-        }
-        let vol = data[indexPath.item]
-        let title = vol.volumeInfo?.title
-        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
-        var contentConfiguration = cell.smallBookPreviewConfiguration()
-        contentConfiguration.bookThumbnail = thumbnailLink
-        contentConfiguration.bookTitle = title
-        cell.contentConfiguration = contentConfiguration
-    }
-    
-    private func supplementaryViewFooterRegistrationHandler(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) {}
 }

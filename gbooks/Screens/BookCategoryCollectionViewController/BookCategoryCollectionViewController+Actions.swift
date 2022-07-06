@@ -4,7 +4,8 @@ import UIKit
 extension BookCategoryCollectionViewController {
     
     @objc func onSearchButtonPress(_ sender: UIBarButtonItem) {
-        navigationController?.pushViewController(BookSearchViewController(), animated: true)
+        print(navigationController?.viewControllers)
+        navigationController?.pushViewController(BookSearchViewController(booksApi: booksApi), animated: true)
     }
 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
