@@ -160,8 +160,6 @@
 				84130845286D92F6005A5C8B /* Models */,
 				84130840286D8C36005A5C8B /* Http */,
 				8413080F286AFA49005A5C8B /* AppDelegate.swift */,
-				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
-				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
 				84130811286AFA49005A5C8B /* SceneDelegate.swift */,
 				84130815286AFA49005A5C8B /* Main.storyboard */,
 				84130818286AFA4B005A5C8B /* Assets.xcassets */,
@@ -261,6 +259,8 @@
 		84131F7428755D43000E1566 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
+				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
 				8405E7812874063800D3E602 /* CategeoryListViewController */,
 				8413086D2872D0F3005A5C8B /* BookDetailsViewController */,
 				84130860286F282D005A5C8B /* BookSearchViewController */,
