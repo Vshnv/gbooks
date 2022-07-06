@@ -29,8 +29,4 @@ class CategoryListViewController: UICollectionViewController {
         setupDataSource()
         navigationItem.title = subject.rawValue
     }
-    
-    deinit {
-        print("Deinitializing category view")
-    }
 }

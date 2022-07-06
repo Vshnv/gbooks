@@ -58,10 +58,6 @@ class BookCategoryCollectionViewController: UICollectionViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("Active Controllers: \(navigationController?.viewControllers)")
-    }
-    
     @MainActor private func setVolumeData(section: Section, volumesLoadState: VolumeLoadState) {
         volumeData[section] = volumesLoadState
     }

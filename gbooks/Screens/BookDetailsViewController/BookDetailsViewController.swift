@@ -35,7 +35,30 @@ class BookDetailsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
+        let cellRegistration = UICollectionView.CellRegistration {
+            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) in
+                let section = self?.section(for: indexPath)
+                switch (section, row) {
+                case (_, .header(let title)):
+                    cell.contentConfiguration = self?.headerConfiguration(for: cell, with: title)
+                case (.cover, .image):
+                    cell.contentConfiguration = self?.coverImageConfiguration(for: cell, with: self?.volume?.volumeInfo?.imageLinks?.thumbnail ?? self?.volume?.volumeInfo?.imageLinks?.smallThumbnail)
+                case (.publishDetails, .publisherView):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: self?.volume?.volumeInfo?.publisher)
+                case (.publishDetails, .publishDateView):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: self?.volume?.volumeInfo?.publishedDate)
+                case (.title, .titleView):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: self?.volume?.volumeInfo?.title)
+                case (.subtitle, .subtitleView):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: self?.volume?.volumeInfo?.subtitle)
+                case (.authors, .author(let author)):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: author)
+                case (.description, .descriptionView):
+                    cell.contentConfiguration = self?.textViewConfiguration(for: cell, with: self?.volume?.volumeInfo?.description)
+                default:
+                    fatalError("Unexpected combination of section and row.")
+                }
+        }
         dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Row) in
                     return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
@@ -58,34 +81,9 @@ class BookDetailsViewController: UICollectionViewController {
         }
     }
     
-    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) {
-        let section = section(for: indexPath)
-        switch (section, row) {
-        case (_, .header(let title)):
-            cell.contentConfiguration = headerConfiguration(for: cell, with: title)
-        case (.cover, .image):
-            cell.contentConfiguration = coverImageConfiguration(for: cell, with: volume?.volumeInfo?.imageLinks?.thumbnail ?? volume?.volumeInfo?.imageLinks?.smallThumbnail)
-        case (.publishDetails, .publisherView):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: volume?.volumeInfo?.publisher)
-        case (.publishDetails, .publishDateView):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: volume?.volumeInfo?.publishedDate)
-        case (.title, .titleView):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: volume?.volumeInfo?.title)
-        case (.subtitle, .subtitleView):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: volume?.volumeInfo?.subtitle)
-        case (.authors, .author(let author)):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: author)
-        case (.description, .descriptionView):
-            cell.contentConfiguration = textViewConfiguration(for: cell, with: volume?.volumeInfo?.description)
-        default:
-            fatalError("Unexpected combination of section and row.")
-        }
-    }
     private func updateSnapshot() {
         var snapshot = Snapshot()
-        if volume == nil {
-            
-        } else {
+        if volume != nil {
             snapshot.appendSections([.cover, .title, .subtitle, .authors, .publishDetails, .description])
             if (volume?.volumeInfo?.imageLinks?.thumbnail != nil) {
                 snapshot.appendItems([.header(""),.image], toSection: .cover)
@@ -110,5 +108,4 @@ class BookDetailsViewController: UICollectionViewController {
         }
         return section
     }
-
 }
