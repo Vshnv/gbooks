@@ -6,7 +6,6 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         var bookThumbnail: String?
         var bookTitle: String?
         func makeContentView() -> UIView & UIContentView {
-            
             return SmallBookPreviewContentView(self)
         }
         

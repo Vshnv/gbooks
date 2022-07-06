@@ -63,8 +63,5 @@ extension BookSearchViewController {
         cell.contentConfiguration = contentConfiguration
     }
     
-    private func supplementaryViewFooterRegistrationHandler(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) {
-        
-        
-    }
+    private func supplementaryViewFooterRegistrationHandler(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) {}
 }

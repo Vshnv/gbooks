@@ -156,14 +156,9 @@
 		8413080E286AFA49005A5C8B /* gbooks */ = {
 			isa = PBXGroup;
 			children = (
+				84131F7428755D43000E1566 /* Screens */,
 				84130845286D92F6005A5C8B /* Models */,
 				84130840286D8C36005A5C8B /* Http */,
-				84130833286C25DF005A5C8B /* ReusableViews */,
-				8413082A286B3E92005A5C8B /* ContentViews */,
-				84130823286B0333005A5C8B /* BookCategoryCollectionViewController */,
-				84130860286F282D005A5C8B /* BookSearchViewController */,
-				8413086D2872D0F3005A5C8B /* BookDetailsViewController */,
-				8405E7812874063800D3E602 /* CategeoryListViewController */,
 				8413080F286AFA49005A5C8B /* AppDelegate.swift */,
 				84130852286DDDCE005A5C8B /* ImageLoader.swift */,
 				84130850286DDD89005A5C8B /* UIImageLoader.swift */,
@@ -261,6 +256,19 @@
 				841308742872E40B005A5C8B /* BookDetailsViewController+CellConfiguration.swift */,
 			);
 			path = BookDetailsViewController;
+			sourceTree = "<group>";
+		};
+		84131F7428755D43000E1566 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8405E7812874063800D3E602 /* CategeoryListViewController */,
+				8413086D2872D0F3005A5C8B /* BookDetailsViewController */,
+				84130860286F282D005A5C8B /* BookSearchViewController */,
+				84130823286B0333005A5C8B /* BookCategoryCollectionViewController */,
+				8413082A286B3E92005A5C8B /* ContentViews */,
+				84130833286C25DF005A5C8B /* ReusableViews */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
