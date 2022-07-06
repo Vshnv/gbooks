@@ -6,8 +6,38 @@ extension BookCategoryCollectionViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
     
     internal func setupDataSource() {
-        let bestSellerCellRegistration = UICollectionView.CellRegistration(handler: bestSellerCellRegistrationHandler)
-        let smallBookPreviewCellRegistration = UICollectionView.CellRegistration(handler: smallBookPreviewCellRegistrationHandler)
+        let bestSellerCellRegistration = UICollectionView.CellRegistration{ [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+            let section = Section(rawValue: indexPath.section)!
+            let bestSellersState = self?.bestSellerData[section] ?? .error(message: "Not Found")
+            guard case .loaded(let data) = bestSellersState else {
+                return
+            }
+            let bestSellers = data
+            let book = bestSellers[indexPath.item]
+            var contentConfiguration = cell.bestSellerConfiguration()
+            contentConfiguration.rank = book.rank
+            contentConfiguration.title = book.title
+            contentConfiguration.description = book.description
+            contentConfiguration.thumbnailImage = book.bookImage
+            cell.contentConfiguration = contentConfiguration
+        }
+        let smallBookPreviewCellRegistration = UICollectionView.CellRegistration {
+            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+            let section = Section(rawValue: indexPath.section)!
+            let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
+            guard case .loaded(let data) = volumesState else {
+                return
+            }
+                let volumes = data
+            let vol = volumes[indexPath.item]
+            
+            let title = vol.volumeInfo?.title
+            let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
+            var contentConfiguration = cell.smallBookPreviewConfiguration()
+            contentConfiguration.bookThumbnail = thumbnailLink
+            contentConfiguration.bookTitle = title
+            cell.contentConfiguration = contentConfiguration
+        }
         collectionView.register(LoadingBestSellerCell.self, forCellWithReuseIdentifier: LoadingBestSellerCell.reuseIdentifier)
         collectionView.register(LoadingSmallBookPreviewCell.self, forCellWithReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
@@ -46,8 +76,35 @@ extension BookCategoryCollectionViewController {
                 fatalError("Unknown section inserted")
             }
         })
-        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: HeadingLabelReusableView.elementKind, handler: self.supplementarySectionHeaderRegistrationHandler)
-        let viewHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: LogoImageReusableView.elementKind, handler: self.supplementaryViewHeaderRegistrationHandler)
+        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: HeadingLabelReusableView.elementKind) { [weak self] (headerView: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) in
+                let section = Section(rawValue: indexPath.section)!
+                headerView.text = section.name
+                headerView.onTap = { [weak self] in
+                    let prefetched: [Volume]
+                    switch section {
+                    case .bestSellersHealth:
+                        fallthrough
+                    case .bestSellersTravel:
+                        prefetched = []
+                    default:
+                        let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
+                        switch volumesState {
+                        case .loaded(let data):
+                            prefetched = data
+                        default:
+                            prefetched = []
+                        }
+                    }
+                    guard let self = self else {
+                        return
+                    }
+                    self.navigationController?.pushViewController(CategoryListViewController(booksApi: self.booksApi, data: prefetched, subject: section.subject), animated: true)
+
+                }
+        }
+        let viewHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: LogoImageReusableView.elementKind) { (logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) in
+                logoImageView.image = UIImage(named: "google-logo")
+        }
         dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
             switch elementKind {
             case HeadingLabelReusableView.elementKind:
@@ -111,71 +168,5 @@ extension BookCategoryCollectionViewController {
             }
         }
         dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    
-    private func bestSellerCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
-        let section = Section(rawValue: indexPath.section)!
-        let bestSellersState = bestSellerData[section] ?? .error(message: "Not Found")
-        guard case .loaded(let data) = bestSellersState else {
-            return
-        }
-        let bestSellers = data
-        let book = bestSellers[indexPath.item]
-        var contentConfiguration = cell.bestSellerConfiguration()
-        contentConfiguration.rank = book.rank
-        contentConfiguration.title = book.title
-        contentConfiguration.description = book.description
-        contentConfiguration.thumbnailImage = book.bookImage
-        cell.contentConfiguration = contentConfiguration
-    }
-    
-    private func smallBookPreviewCellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
-        let section = Section(rawValue: indexPath.section)!
-        let volumesState = volumeData[section] ?? .error(message: "Not Found")
-        guard case .loaded(let data) = volumesState else {
-            return
-        }
-        let volumes = data
-        let vol = volumes[indexPath.item]
-        
-        let title = vol.volumeInfo?.title
-        let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
-        var contentConfiguration = cell.smallBookPreviewConfiguration()
-        contentConfiguration.bookThumbnail = thumbnailLink
-        contentConfiguration.bookTitle = title
-        cell.contentConfiguration = contentConfiguration
-    }
-    
-    private func supplementarySectionHeaderRegistrationHandler(headerView: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) {
-        
-        let section = Section(rawValue: indexPath.section)!
-        headerView.text = section.name
-        headerView.onTap = { [weak self] in
-            let prefetched: [Volume]
-            switch section {
-            case .bestSellersHealth:
-                fallthrough
-            case .bestSellersTravel:
-                prefetched = []
-            default:
-                let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
-                switch volumesState {
-                case .loaded(let data):
-                    prefetched = data
-                default:
-                    prefetched = []
-                }
-            }
-            guard let self = self else {
-                return
-            }
-            self.navigationController?.pushViewController(CategoryListViewController(booksApi: self.booksApi, data: prefetched, subject: section.subject), animated: true)
-        }
-    }
-    
-    private func supplementaryViewHeaderRegistrationHandler(logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) {
-        // logoImageView.backgroundColor = .random
-        logoImageView.image = UIImage(named: "google-logo")
-        
     }
 }
