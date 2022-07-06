@@ -24,6 +24,8 @@ class BookSearchViewController: UICollectionViewController {
         super.viewDidLoad()
         setupSearchBar()
         setupDataSource()
+        collectionView.keyboardDismissMode = .onDrag
+
     }
     
     private func setupSearchBar() {
