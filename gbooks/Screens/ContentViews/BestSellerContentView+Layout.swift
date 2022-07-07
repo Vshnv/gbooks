@@ -1,8 +1,13 @@
 import UIKit
 
-
 extension BestSellerContentView {
-    internal func setupLayout(backgroundImageView: UIImageView, rankLabel: UILabel, titleLabel: UILabel, descriptionLabel: UILabel, thumbnailImageView: UIImageView) {
+    internal func setupLayout(
+        backgroundImageView: UIImageView,
+        rankLabel: UILabel,
+        titleLabel: UILabel,
+        descriptionLabel: UILabel,
+        thumbnailImageView: UIImageView
+    ) {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.clipsToBounds = true
         backgroundImageView.layer.cornerRadius = 10
@@ -14,7 +19,7 @@ extension BestSellerContentView {
         backgroundImageView.addSubview(visualEffectView)
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         visualEffectView.contentView.addSubview(thumbnailImageView)
-        //containerView.backgroundColor = .systemGray5
+        // containerView.backgroundColor = .systemGray5
         visualEffectView.clipsToBounds = true
         visualEffectView.layer.cornerRadius = 10
         visualEffectView.contentView.addSubview(titleLabel)

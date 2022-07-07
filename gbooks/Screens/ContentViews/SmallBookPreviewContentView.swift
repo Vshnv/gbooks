@@ -8,19 +8,19 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         func makeContentView() -> UIView & UIContentView {
             return SmallBookPreviewContentView(self)
         }
-        
+
         func updated(for state: UIConfigurationState) -> SmallBookPreviewContentView.Configuration {
             return self
         }
     }
-    
+
     private let imageView: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleToFill
         img.backgroundColor = .systemGray2
         return img
     }()
-    
+
     private let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .systemFont(ofSize: 12)
@@ -29,24 +29,23 @@ class SmallBookPreviewContentView: UIView, UIContentView {
         lbl.textAlignment = .center
         return lbl
     }()
-    
+
     var configuration: UIContentConfiguration {
         didSet {
             configure(configuration: configuration)
         }
     }
 
-
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
         setupLayout(imageView: imageView, titleLabel: titleLabel)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func configure(configuration: UIContentConfiguration) {
         imageView.image = nil
         imageView.cancelImageLoad()
@@ -65,7 +64,7 @@ class SmallBookPreviewContentView: UIView, UIContentView {
             guard var urlComponents = URLComponents(string: configuration.bookThumbnail!) else {
                 return
             }
-            //urlComponents.scheme = "https"
+            // urlComponents.scheme = "https"
             guard let url = urlComponents.url else {
                 return
             }
@@ -92,20 +91,23 @@ class LoadingSmallBookPreviewCell: UICollectionViewCell {
         ])
         prepareForReuse()
     }
-    
+
     override func prepareForReuse() {
         Task {
             await MainActor.run {
                 contentView.alpha = 1
                 contentView.backgroundColor = .systemGray5
-                UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: { [weak self] in
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0,
+                    options: [.repeat, .autoreverse],
+                    animations: { [weak self] in
                     self?.contentView.alpha = 0.25
                 }, completion: nil)
             }
         }
     }
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -4,10 +4,10 @@ import UIKit
 extension CategoryListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
-    
+
     internal func setupDataSource() {
         let tileElementCellRegistration = UICollectionView.CellRegistration {
-            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, _: String) in
             let vol = self?.data[indexPath.item]
             let title = vol?.volumeInfo?.title
             let thumbnailLink = vol?.volumeInfo?.imageLinks?.thumbnail
@@ -25,10 +25,10 @@ extension CategoryListViewController {
             }
         })
         let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind) {
-            (activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) in
+            (_: ActivityIndicatorReusableView, _: String, _: IndexPath) in
         }
-       
-        dataSource.supplementaryViewProvider = { [weak self] supplementaryView, elementKind, indexPath in
+
+        dataSource.supplementaryViewProvider = { [weak self] _, elementKind, indexPath in
             switch elementKind {
             case ActivityIndicatorReusableView.elementKind:
                 return self?.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: indexPath)
@@ -39,15 +39,15 @@ extension CategoryListViewController {
         collectionView.dataSource = dataSource
         updateSnapshot()
     }
-    
+
     @MainActor func updateSnapshot() {
         collectionView.hideActivityIndicator()
         var snapshot = Snapshot()
         snapshot.appendSections([0])
         if isLoadingMore && data.isEmpty {
-            snapshot.appendItems((0...15).map{ "\($0)" }, toSection: 0)
+            snapshot.appendItems((0...15).map { "\($0)" }, toSection: 0)
         } else {
-            snapshot.appendItems(data.map{$0.id!}, toSection: 0)
+            snapshot.appendItems(data.map {$0.id!}, toSection: 0)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }

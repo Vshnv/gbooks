@@ -6,7 +6,6 @@ class UIImageLoader {
     private let imageLoader = ImageLoader()
     private var uuidMap = [UIImageView: UUID]()
 
-
     func load(from url: URL, for imageView: UIImageView, animate: Bool) {
         cancel(for: imageView)
         if animate {
@@ -21,7 +20,7 @@ class UIImageLoader {
                     imageView.hideActivityIndicator()
                 }
             } catch {
-        
+
             }
         }
         if let token = token {
@@ -57,13 +56,13 @@ extension UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         view.startAnimating()
-        
+
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
-    
+
     func hideActivityIndicator() {
         if let view = UIView.activeIndicators[self] {
             view.removeFromSuperview()

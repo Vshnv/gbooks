@@ -3,7 +3,7 @@ import UIKit
 class ImageContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
         var imageUrl: String?
-        
+
         func makeContentView() -> UIView & UIContentView {
             return ImageContentView(self)
         }
@@ -11,30 +11,30 @@ class ImageContentView: UIView, UIContentView {
             self
         }
     }
-    
+
     private let imageView = UIImageView()
-    
+
     var configuration: UIContentConfiguration {
         didSet {
             configure(configuration: configuration)
         }
     }
-    
+
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 0, height: 44)
     }
-    
+
     init(_ contentConfiguration: UIContentConfiguration) {
         self.configuration = contentConfiguration
         super.init(frame: .zero)
         setupLayout(imageView: imageView)
         imageView.backgroundColor = .systemGray6
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
         guard var urlComponents = URLComponents(string: configuration.imageUrl!) else {
@@ -46,7 +46,7 @@ class ImageContentView: UIView, UIContentView {
         }
         imageView.loadImage(at: url)
     }
-    
+
 }
 
 extension UICollectionViewListCell {

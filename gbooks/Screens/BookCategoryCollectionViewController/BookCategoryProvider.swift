@@ -4,14 +4,14 @@ typealias Section = BookCategoryCollectionViewController.Section
 
 @MainActor
 class BookCategoryProvider {
-    
+
     private let booksApi = HttpClientGoogleBooksApi(
         client: HttpClient(
             session: URLSession.shared,
             decoder: JSONDecoder()
         )
     )
-    
+
     private let bestSellersApi = HttpClientBestSellersApi(
         client: HttpClient(
             session: URLSession.shared,
@@ -22,25 +22,23 @@ class BookCategoryProvider {
             }()
         )
     )
-    
-    private var volumeData : [Section : VolumeLoadState] = [
-        .thriller : .notLoaded,
-        .fiction : .notLoaded,
-        .manga : .notLoaded,
-        .sports : .notLoaded
+
+    private var volumeData: [Section: VolumeLoadState] = [
+        .thriller: .notLoaded,
+        .fiction: .notLoaded,
+        .manga: .notLoaded,
+        .sports: .notLoaded
     ]
-    
-    private var bestSellerData : [Section : BestSellerLoadState] = [
-        .bestSellersHealth : .notLoaded,
-        .bestSellersTravel : .notLoaded
+
+    private var bestSellerData: [Section: BestSellerLoadState] = [
+        .bestSellersHealth: .notLoaded,
+        .bestSellersTravel: .notLoaded
     ]
-    
-    
+
     func getVolumeData(section: Section) -> VolumeLoadState? {
         return volumeData[section]
     }
-    
-    
+
     func loadVolumeData(section: Section) async {
         await Task(priority: .background) {
             do {

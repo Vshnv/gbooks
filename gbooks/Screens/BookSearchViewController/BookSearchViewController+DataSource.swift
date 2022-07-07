@@ -4,10 +4,10 @@ import Foundation
 extension BookSearchViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
-    
+
     internal func setupDataSource() {
-        let searchElementCellRegistration = UICollectionView.CellRegistration{ [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
-            guard case .results(let data,_) = self?.searchState else {
+        let searchElementCellRegistration = UICollectionView.CellRegistration { [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, _: String) in
+            guard case .results(let data, _) = self?.searchState else {
                 return
             }
             let vol = data[indexPath.item]
@@ -18,7 +18,7 @@ extension BookSearchViewController {
             contentConfiguration.bookTitle = title
             cell.contentConfiguration = contentConfiguration
         }
-        
+
         collectionView.register(LoadingSmallBookPreviewCell.self, forCellWithReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { [weak self] (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
             switch self?.searchState {
@@ -28,13 +28,13 @@ extension BookSearchViewController {
                 fallthrough
             case .searching:
                 return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
-            case .results(_,_):
+            case .results:
                 return collectionView.dequeueConfiguredReusableCell(using: searchElementCellRegistration, for: indexPath, item: itemIdentifier)
             }
         })
-        let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind) {(activityIndicatorReusableView: ActivityIndicatorReusableView, elementKind: String, indexPath: IndexPath) in}
-       
-        dataSource.supplementaryViewProvider = { [weak self] supplementaryView, elementKind, indexPath in
+        let footerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ActivityIndicatorReusableView.elementKind) {(_: ActivityIndicatorReusableView, _: String, _: IndexPath) in}
+
+        dataSource.supplementaryViewProvider = { [weak self] _, elementKind, indexPath in
             switch elementKind {
             case ActivityIndicatorReusableView.elementKind:
                 return self?.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: indexPath)
@@ -45,7 +45,7 @@ extension BookSearchViewController {
         collectionView.dataSource = dataSource
         updateSnapshot()
     }
-    
+
     @MainActor func updateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
@@ -53,10 +53,10 @@ extension BookSearchViewController {
         case .idle:
             break
         case .searching:
-            snapshot.appendItems((0...15).map{ "\($0)" }, toSection: 0)
+            snapshot.appendItems((0...15).map { "\($0)" }, toSection: 0)
 
         case .results(let data, _):
-            snapshot.appendItems(data.map{$0.id!}, toSection: 0)
+            snapshot.appendItems(data.map {$0.id!}, toSection: 0)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }

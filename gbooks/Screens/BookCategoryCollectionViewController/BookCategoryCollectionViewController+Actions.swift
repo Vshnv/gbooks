@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 extension BookCategoryCollectionViewController {
-    
+
     @objc func onSearchButtonPress(_ sender: UIBarButtonItem) {
         print(navigationController?.viewControllers)
         navigationController?.pushViewController(BookSearchViewController(booksApi: booksApi), animated: true)
@@ -12,7 +12,7 @@ extension BookCategoryCollectionViewController {
         guard let section = Section(rawValue: indexPath.section) else {
             return false
         }
-        
+
         switch section {
         case .bestSellersTravel:
             fallthrough

@@ -8,7 +8,7 @@ extension BookCategoryCollectionViewController {
         case bestSellersTravel
         case manga
         case sports
-        
+
         var name: String {
             switch self {
             case .bestSellersHealth:
@@ -25,7 +25,7 @@ extension BookCategoryCollectionViewController {
                 return NSLocalizedString("Sports", comment: "Sports section name")
             }
         }
-        
+
         var subject: Subject {
             switch self {
             case .bestSellersHealth:

@@ -6,66 +6,66 @@ class BestSellerContentView: UIView, UIContentView {
         var title: String?
         var description: String?
         var thumbnailImage: String?
-        
+
         func makeContentView() -> UIView & UIContentView {
             return BestSellerContentView(self)
         }
-        
+
         func updated(for state: UIConfigurationState) -> BestSellerContentView.Configuration {
             self
         }
     }
-    
+
     private let backgroundImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleToFill
-        return iv
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
-    
+
     private let rankLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .boldSystemFont(ofSize: 15)
-        return lbl
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 15)
+        return label
     }()
-    
+
     private let titleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .boldSystemFont(ofSize: 15)
-        lbl.numberOfLines = 0
-        lbl.lineBreakMode = .byWordWrapping
-        return lbl
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
     }()
-    
+
     private let descriptionLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 12)
-        lbl.numberOfLines = 0
-        lbl.lineBreakMode = .byWordWrapping
-        return lbl
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
     }()
-    
+
     private let thumbnailImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleToFill
-        return iv
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
-    
+
     var configuration: UIContentConfiguration {
         didSet {
             configure(configuration: configuration)
         }
     }
-    
+
     init(_ configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
         setupLayout(backgroundImageView: backgroundImageView, rankLabel: rankLabel, titleLabel: titleLabel, descriptionLabel: descriptionLabel, thumbnailImageView: thumbnailImageView)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func configure(configuration: UIContentConfiguration) {
         backgroundImageView.image = nil
         thumbnailImageView.image = nil
@@ -99,7 +99,7 @@ class BestSellerContentView: UIView, UIContentView {
 
 class LoadingBestSellerCell: UICollectionViewCell {
     static let reuseIdentifier = "LoadingBestSellerCell"
-    
+
     private let view = UIView()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -127,7 +127,7 @@ class LoadingBestSellerCell: UICollectionViewCell {
             self?.view.alpha = 0.25
         }, completion: nil)
     }
-    
+
     override func prepareForReuse() {
         Task {
             await MainActor.run {
@@ -140,7 +140,6 @@ class LoadingBestSellerCell: UICollectionViewCell {
         }
     }
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

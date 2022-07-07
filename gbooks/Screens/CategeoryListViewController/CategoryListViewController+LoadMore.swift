@@ -12,14 +12,14 @@ extension CategoryListViewController {
         tryLoadMore()
         indicator.activityIndicator.startAnimating()
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         guard elementKind == ActivityIndicatorReusableView.elementKind, let indicator = view as? ActivityIndicatorReusableView else {
             return
         }
         indicator.activityIndicator.stopAnimating()
     }
-    
+
     func tryLoadMore() {
         if loadTask != nil {
             return

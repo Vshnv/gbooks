@@ -1,6 +1,5 @@
 import Foundation
 
-
 /**
  * Interfaces the Google Books API (https://developers.google.com/books)
  */
@@ -16,7 +15,7 @@ protocol GoogleBooksApi {
      * - returns: list of volumes  along with a some extra information about the results of the given query
      */
     func fetchVolumes(_ query: String?, subject: Subject, startIndex: Int, maxResults: Int) async throws -> VolumesFetchResult
-    
+
     /**
      * Fetches a volume matching the specific isbn code
      *

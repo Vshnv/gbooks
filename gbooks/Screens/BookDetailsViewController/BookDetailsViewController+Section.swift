@@ -8,7 +8,7 @@ extension BookDetailsViewController {
         case authors
         case publishDetails
         case description
-        
+
         var name: String {
             switch self {
             case .cover:

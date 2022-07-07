@@ -4,9 +4,9 @@ import Foundation
 extension BookCategoryCollectionViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
-    
+
     internal func setupDataSource() {
-        let bestSellerCellRegistration = UICollectionView.CellRegistration{ [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+        let bestSellerCellRegistration = UICollectionView.CellRegistration { [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, _: String) in
             let section = Section(rawValue: indexPath.section)!
             let bestSellersState = self?.bestSellerData[section] ?? .error(message: "Not Found")
             guard case .loaded(let data) = bestSellersState else {
@@ -22,7 +22,7 @@ extension BookCategoryCollectionViewController {
             cell.contentConfiguration = contentConfiguration
         }
         let smallBookPreviewCellRegistration = UICollectionView.CellRegistration {
-            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, id: String) in
+            [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, _: String) in
             let section = Section(rawValue: indexPath.section)!
             let volumesState = self?.volumeData[section] ?? .error(message: "Not Found")
             guard case .loaded(let data) = volumesState else {
@@ -30,7 +30,7 @@ extension BookCategoryCollectionViewController {
             }
                 let volumes = data
             let vol = volumes[indexPath.item]
-            
+
             let title = vol.volumeInfo?.title
             let thumbnailLink = vol.volumeInfo?.imageLinks?.thumbnail ?? vol.volumeInfo?.imageLinks?.smallThumbnail
             var contentConfiguration = cell.smallBookPreviewConfiguration()
@@ -49,11 +49,11 @@ extension BookCategoryCollectionViewController {
             case .bestSellersHealth:
                 let bestSellersState = self.bestSellerData[section] ?? .error(message: "Not Found")
                 switch bestSellersState {
-                case .loaded(_):
+                case .loaded:
                     return collectionView.dequeueConfiguredReusableCell(using: bestSellerCellRegistration, for: indexPath, item: itemIdentifier)
                 case .notLoaded:
                     return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingBestSellerCell.reuseIdentifier, for: indexPath)
-                case .error(_):
+                case .error:
                     return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingBestSellerCell.reuseIdentifier, for: indexPath)
                 }
             case .thriller:
@@ -65,18 +65,18 @@ extension BookCategoryCollectionViewController {
             case .fiction:
                 let volumeState = self.volumeData[section] ?? .error(message: "Not Found")
                 switch volumeState {
-                case .loaded(_):
+                case .loaded:
                     return collectionView.dequeueConfiguredReusableCell(using: smallBookPreviewCellRegistration, for: indexPath, item: itemIdentifier)
                 case .notLoaded:
                     return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
-                case .error(_):
+                case .error:
                     return collectionView.dequeueReusableCell(withReuseIdentifier: LoadingSmallBookPreviewCell.reuseIdentifier, for: indexPath)
                 }
             @unknown default:
                 fatalError("Unknown section inserted")
             }
         })
-        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: HeadingLabelReusableView.elementKind) { [weak self] (headerView: HeadingLabelReusableView, elementKind: String, indexPath: IndexPath) in
+        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: HeadingLabelReusableView.elementKind) { [weak self] (headerView: HeadingLabelReusableView, _: String, indexPath: IndexPath) in
                 let section = Section(rawValue: indexPath.section)!
                 headerView.text = section.name
                 headerView.onTap = { [weak self] in
@@ -102,10 +102,10 @@ extension BookCategoryCollectionViewController {
 
                 }
         }
-        let viewHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: LogoImageReusableView.elementKind) { (logoImageView: LogoImageReusableView, elementKind: String, indexPath: IndexPath) in
+        let viewHeaderRegistration = UICollectionView.SupplementaryRegistration(elementKind: LogoImageReusableView.elementKind) { (logoImageView: LogoImageReusableView, _: String, _: IndexPath) in
                 logoImageView.image = UIImage(named: "google-logo")
         }
-        dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
+        dataSource.supplementaryViewProvider = { _, elementKind, indexPath in
             switch elementKind {
             case HeadingLabelReusableView.elementKind:
                 return self.collectionView.dequeueConfiguredReusableSupplementary(using: sectionHeaderRegistration, for: indexPath)
@@ -115,14 +115,14 @@ extension BookCategoryCollectionViewController {
                 fatalError("Unknown element kind found in Book Category Layout")
             }
         }
-        
+
         collectionView.dataSource = dataSource
     }
-    
+
     @MainActor func updateSnapshot() {
         collectionView.hideActivityIndicator()
         var snapshot = Snapshot()
-        
+
         for sectionIndex in Section.bestSellersHealth.rawValue...Section.sports.rawValue {
             snapshot.appendSections([sectionIndex])
             let section = Section(rawValue: sectionIndex)!
@@ -134,12 +134,12 @@ extension BookCategoryCollectionViewController {
                 switch bestSellersState {
                 case .loaded(let data):
                     snapshot.appendItems(
-                        data.map{ bestSeller in bestSeller.primaryIsbn13 },
+                        data.map { bestSeller in bestSeller.primaryIsbn13 },
                         toSection: sectionIndex
                     )
                 default:
                     snapshot.appendItems(
-                        (0..<2).map{_ in UUID().uuidString},
+                        (0..<2).map {_ in UUID().uuidString},
                         toSection: sectionIndex
                     )
                 }
@@ -154,12 +154,12 @@ extension BookCategoryCollectionViewController {
                 switch volumeSate {
                 case .loaded(let data):
                     snapshot.appendItems(
-                        data.map{ volume in volume.id! },
+                        data.map { volume in volume.id! },
                         toSection: sectionIndex
                     )
                 default:
                     snapshot.appendItems(
-                        (0..<4).map{_ in UUID().uuidString},
+                        (0..<4).map {_ in UUID().uuidString},
                         toSection: sectionIndex
                     )
                 }

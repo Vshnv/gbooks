@@ -6,7 +6,7 @@ struct BestSellerFetchResult: Codable {
     let numResults: Int
     let lastModified: String
     let results: Result
-    
+
     struct Result: Codable {
         let listName: String
         let bestsellersDate: String
@@ -18,7 +18,6 @@ struct BestSellerFetchResult: Codable {
         let corrections: [String]
     }
 }
-
 
 struct BestSeller: Codable {
     let rank: Int
@@ -43,10 +42,10 @@ struct BestSeller: Codable {
     let sundayReviewLink: String
     let articleChapterLink: String
     let isbns: [IsbnCode]
-    
+
     struct IsbnCode: Codable {
         let isbn10: String
         let isbn13: String
     }
-    
+
 }

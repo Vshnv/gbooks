@@ -9,7 +9,7 @@ extension CategoryListViewController {
         let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(0.2))
-        
+
         let footer = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: footerSize,
                         elementKind: ActivityIndicatorReusableView.elementKind,
@@ -25,7 +25,7 @@ extension CategoryListViewController {
         layout.configuration = layoutConfiguration
         return layout
     }
-    
+
     private static func compositionalLayoutSectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let item1 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -33,14 +33,14 @@ extension CategoryListViewController {
                 heightDimension: .fractionalWidth(0.5)
             )
         )
-        
+
         let item2 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(0.33),
                 heightDimension: .fractionalWidth(0.5)
             )
         )
-        
+
         let item3 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(0.33),

@@ -12,14 +12,14 @@ extension BookSearchViewController {
         tryLoadMore()
         indicator.activityIndicator.startAnimating()
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         guard elementKind == ActivityIndicatorReusableView.elementKind, let indicator = view as? ActivityIndicatorReusableView else {
             return
         }
         indicator.activityIndicator.stopAnimating()
     }
-    
+
     func tryLoadMore() {
         if searchTask != nil {
             return
@@ -42,7 +42,7 @@ extension BookSearchViewController {
                 if data.count == newData.count {
                     scrollToTop = true
                 }
-                searchState = VolumeSearchState.results(result: data.uniqueBy{ $0.id! }, hasMore: fetchedSize < total)
+                searchState = VolumeSearchState.results(result: data.uniqueBy { $0.id! }, hasMore: fetchedSize < total)
             } catch {
                 searchState = .idle
             }
@@ -56,7 +56,7 @@ extension BookSearchViewController {
 }
 
 extension Array {
-    func uniqueBy<T: Equatable>(by f: (Element) -> T)-> [Element] {
+    func uniqueBy<T: Equatable>(by f: (Element) -> T) -> [Element] {
         var uniqueValues: [Element] = []
         forEach { item in
             guard !uniqueValues.contains(where: { f(item) == f($0) }) else { return }

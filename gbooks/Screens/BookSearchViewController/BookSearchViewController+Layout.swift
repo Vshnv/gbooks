@@ -9,7 +9,7 @@ extension BookSearchViewController {
         let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(0.2))
-        
+
         let footer = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: footerSize,
                         elementKind: ActivityIndicatorReusableView.elementKind,
@@ -25,7 +25,7 @@ extension BookSearchViewController {
         layout.configuration = layoutConfiguration
         return layout
     }
-    
+
     private static func compositionalLayoutSectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let item1 = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -60,7 +60,7 @@ extension BookSearchViewController {
             subitems: [item1, item2]
         )
         group.interItemSpacing = .flexible(2)
-        
+
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         section.contentInsets = NSDirectionalEdgeInsets(

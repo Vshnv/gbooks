@@ -5,13 +5,12 @@ class HttpClient {
     private let session: URLSession
     private let decoder: JSONDecoder
 
-    
     init(session: URLSession, decoder: JSONDecoder) {
         self.session = session
         self.decoder = decoder
     }
-    
-    func get<R: Codable>(url: String, path: String, parameters: [String:String], decodeTo: R.Type) async throws -> R {
+
+    func get<R: Codable>(url: String, path: String, parameters: [String: String], decodeTo: R.Type) async throws -> R {
         guard var urlComponents = URLComponents(string: url) else {
             throw HttpClientError.invalidUrl
         }
@@ -35,7 +34,7 @@ class HttpClient {
 enum HttpClientError: LocalizedError {
     case invalidUrl
     case invalidComponents
-    
+
     var errorDescription: String? {
         switch self {
         case .invalidUrl:

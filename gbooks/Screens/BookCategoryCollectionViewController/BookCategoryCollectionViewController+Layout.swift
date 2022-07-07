@@ -8,7 +8,7 @@ extension BookCategoryCollectionViewController {
         let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(0.5))
-        
+
         let header = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: headerSize,
                         elementKind: LogoImageReusableView.elementKind,
@@ -24,7 +24,7 @@ extension BookCategoryCollectionViewController {
         layout.configuration = layoutConfiguration
         return layout
     }
-    
+
     private func compositionalLayoutSectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch Section(rawValue: sectionIndex) {
         case .bestSellersTravel:
@@ -43,7 +43,7 @@ extension BookCategoryCollectionViewController {
             fatalError("Unknown section inserted")
         }
     }
-    
+
     private func createBestSellerSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -59,7 +59,7 @@ extension BookCategoryCollectionViewController {
             ),
             subitems: [item]
         )
-        
+
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 5,
@@ -75,7 +75,7 @@ extension BookCategoryCollectionViewController {
                         elementKind: HeadingLabelReusableView.elementKind,
                         alignment: .top
         )
-        
+
         header.contentInsets = NSDirectionalEdgeInsets(
             top: 5,
             leading: 15,
@@ -86,7 +86,7 @@ extension BookCategoryCollectionViewController {
         section.boundarySupplementaryItems = [header]
         return section
     }
-    
+
     private func createCategorySection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -102,7 +102,7 @@ extension BookCategoryCollectionViewController {
             ),
             subitems: [item]
         )
-        
+
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         section.contentInsets = NSDirectionalEdgeInsets(
